@@ -125,6 +125,13 @@ if (!isset($_SESSION['r_username'])) {
                <div class="col-xl-3">
                   <div class="single-work">
                      <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
+                     <p>Add Doctor</p>
+                     <a class="btn yellow-btn" href="addDoctor.php">Add Doctor</a>
+                  </div>
+               </div>
+               <div class="col-xl-3">
+                  <div class="single-work">
+                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
                      <p>Doctors</p>
                      <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
                   </div>

@@ -342,3 +342,68 @@
   
     width: 50%;
   }
+
+  /*doctor page css  starts from here*/
+  img.doctor-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    background: #999696;
+}
+
+.doctor {
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+.single-doctor-div {
+    margin-top: 50px;
+}
+.doctor-content {
+    padding: 20px 15px;
+    text-align: center;
+}
+.doctor-details-area{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.doctor-name{
+    font-size: 56px;
+}
+
+  
+  span.line {
+    width: 145px;
+    height: 3px;
+    background: #FFCA42;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+  }
+.mt-100{
+    margin-top: 100px;
+}
+.doctor-right h4 {
+    font-size: 20px;
+}
+.doctor-experi{
+    margin-top: 20px;
+}
+.appointment-wrapper {
+    background: #ddd;
+    padding: 50px 0;
+    margin: 70px 0;
+}
+.appointment-title{
+    font-size: 50px;
+    margin-bottom: 30px;
+    text-align: center;
+}

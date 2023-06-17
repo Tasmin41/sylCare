@@ -12,8 +12,29 @@
     <section class="login-area">
         <div class="container">
             <div class="login-form">
-                
-                <form action="loginAction.php" method="post" class="register">
+                <h2 class="login-title">Doctor Login</h2>
+            <?php
+                include 'config.php';
+
+                if(isset($_POST['login'])){
+                    $l_username=$_POST['l_username'];
+                    $l_pass=$_POST['l_pass'];
+
+                    $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$l_username' And r_pass='$l_pass'");
+            
+                    if(mysqli_num_rows($result)>0){
+                        session_start();
+                        $_SESSION['r_username']=$l_username;
+                        echo "<script>location.href='home.php'</script>";
+
+                    }
+                    else{
+                        echo "<script>alert('Incorrect Username And Password!!')</script>";
+                        echo "<script>location.href='doctorLogin.php'</script>";
+                    }
+                }
+            ?>
+                <form action="" method="post" class="register">
                     <h3 class="text-white">Login</h3>
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Username</label>
@@ -24,7 +45,7 @@
                       <input type="password" class="form-control" id="exampleInputPassword1" name="l_pass">
                     </div>
                     <button type="submit" class="btn yellow-btn" name ="login">Login</button>
-                    <a href ="registration.php"class=" btn yellow-btn">Register</a>
+                    <a href ="doctorRegistration.php"class=" btn yellow-btn">Register</a>
                   </form>
             </div>
         </div>
