@@ -1,10 +1,14 @@
 <?php
-// session_start();
+session_start();
+include 'config.php';
+$username = $_SESSION['r_username'];
+$result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
+$row=mysqli_fetch_array($result);
 
-// if (!isset($_SESSION['r_username'])) {
-//     header('Location: login.php');
-//     exit;
-// }
+if (!isset($_SESSION['r_username'])) {
+    header('Location: adminLogin.php');
+    exit;
+}
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +17,7 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>All appointmentList</title>
+      <title>Admin || Home</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
@@ -67,106 +71,67 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="about.php" class="nav-item nav-link">About</a>
-                        <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
-                        <a href="doctors.php" class="nav-item nav-link">Doctors</a>
-                        <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="service.html" class="nav-item nav-link">Service</a>
+
+                        <a href="login.php" class="nav-item nav-link">Contact</a>
+                        <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
             </nav>
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="login">
+      <div class="admin-area bg-light">
          <div class="container">
-            <div class="row d-flex justify-content-center">
-            <h2 class="heading text-center mt-5 mb-3">Doctors Lists</h2>
-            <div class="doctors_div">
-
-
-
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <?php
-                          include 'config.php';
-                        // Retrieve department names from the database
-                        $departments = mysqli_query($conn, "SELECT * FROM department");
-
-                        // Loop through the departments
-                        while ($row = mysqli_fetch_assoc($departments)) {
-                            $departmentName = $row['department_name'];
-                            $departmentId = $row['id'];
-                            $isActive = $departmentId == 1 ? 'active' : ''; // Set the first department as active
-
-                            // Generate the navigation tab button
-                            echo '<button class="nav-link ' . $isActive . '" id="nav-' . $departmentName . '-tab" data-bs-toggle="tab" data-bs-target="#nav-' . $departmentName . '" type="button" role="tab" aria-controls="nav-' . $departmentName . '" aria-selected="' . ($isActive ? 'true' : 'false') . '">' . $departmentName . '</button>';
-                        }
-                        ?>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                <?php
-                          include 'config.php';
-                        // Retrieve department names from the database
-                        $departments = mysqli_query($conn, "SELECT * FROM department");
-
-                        // Loop through the departments
-                        while ($row = mysqli_fetch_assoc($departments)) {
-                            $departmentName = $row['department_name'];
-                            $departmentId = $row['id'];
-                            $isActive = $departmentId == 2 ? 'active' : ''; // Set the first department as active
-                            $isShow = $departmentId == 2 ? 'show' : ''; 
-
-                            // Generate the navigation tab button
-                            echo '<div class="tab-pane fade '. $isShow .' ' . $isActive . '" id="nav-' . $departmentName . '" role="tabpanel" aria-labelledby="#nav-' . $departmentName . '-tab" tabindex="0">';
-                            $allData = mysqli_query($conn,"SELECT * FROM `doctor_registration` WHERE r_department='$departmentName'" );
-                            echo '<div class="single-doctor-div">
-                                <div class="row">';
-                                if(mysqli_num_rows($allData)>0){
-                                    while($row=mysqli_fetch_array($allData)){
-                                        echo '<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                            <div class="doctor">
-                                                <div class="doctor-img-div">
-                                                    <img src="img/' .$row['image'] . '" alt="doctor1" class="doctor-img">
-                                                </div>
-                                                <div class="doctor-content">
-                                                    <h4 class="doctor_title">Dr. ' .$row['r_username'] . '</h4>
-                                                    <h5 class="doctor_sub_title">' .$row['post'] . '</h5>
-                                                    <a class="doctor_btn btn yellow-btn rounded-pill" href="doctorDetails.php?id='.$row['id'].'">View Details</a>
-                                                </div>
-                                            </div>
-                                        </div>';
-                                    }
-                                }
-                                else {
-                                    echo '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h2>No doctor in this department !!</h2>
-                                </div>';
-                                }
-
-
-                     
-                                echo '</div>
-                            </div>';
-
-                            echo '</div>';
-                        }
-                        ?>
-                </div>
-
+            <div class="row">
+               <div class="col-xl-12">
+                  <h2 class="heading">DASHBOARD</h2>
+               </div>
             </div>
+            <div class="row">
+               <div class="col-xl-3">
+                  <div class="single-work">
+                     <span class="work" href="#">Welcome!</span>
+                     <p><?php echo $_SESSION['r_username']?>
+                     <span class="designation">Admin</span>
+                    </p>
 
-            </div>
+                  </div>
+               </div>
+               <div class="col-xl-3">
+                  <div class="single-work">
+                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
+                     <p>Department</p>
+                     <a class="btn yellow-btn" href="addDepartment.php">Add Department</a>
+                  </div>
+               </div>
+       
+
+          
+               <div class="col-xl-3">
+                  <div class="single-work">
+                     <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
+                     <p>Doctor</p>
+                     <a class="btn yellow-btn" href="doctorRegistration.php">Add Doctor</a>
+                  </div>
+               </div>
+
+               <div class="col-xl-3">
+                  <div class="single-work">
+                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
+                     <p>Doctors</p>
+                     <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light py-5">
         <div class="container py-5">
             <div class="row g-5">
-               
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block yellow-txt text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                     <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>
@@ -228,7 +193,7 @@
         </div>
     </div>
     <!-- Footer End -->
-      <script src="js/bootstrap.min.js"></script>
       <script src="js/main.js"></script>
+      <script src="js/bootstrap.min.js"></script>
    </body>
 </html>

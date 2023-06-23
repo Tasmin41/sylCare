@@ -1,24 +1,36 @@
-<?php
-// session_start();
 
-// if (!isset($_SESSION['r_username'])) {
-//     header('Location: login.php');
-//     exit;
-// }
-
-?>
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>All appointmentList</title>
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
-      <link rel="stylesheet" href="css/style.css">
-   </head>
-   <body>
+
+<head>
+    <meta charset="utf-8">
+    <title>Appointment Page</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">  
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <!--chat-->
+</head>
+
+<body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
         <div class="container">
@@ -59,7 +71,7 @@
     <div class="container-fluid sticky-top bg-white shadow-sm">
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-3 py-lg-0">
-                <a href="home.php" class="navbar-brand">
+                <a href="index.php" class="navbar-brand">
                     <h1 class="m-0 text-uppercase blue-txt"><i class="fa fa-clinic-medical me-2"></i>SylCare</h1>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -67,10 +79,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
+                        <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="doctors.php" class="nav-item nav-link">Doctors</a>
+
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
@@ -78,95 +91,99 @@
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="login">
-         <div class="container">
-            <div class="row d-flex justify-content-center">
-            <h2 class="heading text-center mt-5 mb-3">Doctors Lists</h2>
-            <div class="doctors_div">
 
 
 
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <?php
-                          include 'config.php';
-                        // Retrieve department names from the database
-                        $departments = mysqli_query($conn, "SELECT * FROM department");
 
-                        // Loop through the departments
-                        while ($row = mysqli_fetch_assoc($departments)) {
-                            $departmentName = $row['department_name'];
-                            $departmentId = $row['id'];
-                            $isActive = $departmentId == 1 ? 'active' : ''; // Set the first department as active
-
-                            // Generate the navigation tab button
-                            echo '<button class="nav-link ' . $isActive . '" id="nav-' . $departmentName . '-tab" data-bs-toggle="tab" data-bs-target="#nav-' . $departmentName . '" type="button" role="tab" aria-controls="nav-' . $departmentName . '" aria-selected="' . ($isActive ? 'true' : 'false') . '">' . $departmentName . '</button>';
-                        }
-                        ?>
+    <!-- Appointment Start -->
+    <div class="container-fluid bg-primary my-5 py-5">
+        <div class="container py-5">
+            <div class="row gx-5">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-white text-uppercase border-bottom border-5">Appointment</h5>
+                        <h1 class="display-4 text-white">Make An Appointment For Your Family</h1>
                     </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                <?php
-                          include 'config.php';
-                        // Retrieve department names from the database
-                        $departments = mysqli_query($conn, "SELECT * FROM department");
-
-                        // Loop through the departments
-                        while ($row = mysqli_fetch_assoc($departments)) {
-                            $departmentName = $row['department_name'];
-                            $departmentId = $row['id'];
-                            $isActive = $departmentId == 2 ? 'active' : ''; // Set the first department as active
-                            $isShow = $departmentId == 2 ? 'show' : ''; 
-
-                            // Generate the navigation tab button
-                            echo '<div class="tab-pane fade '. $isShow .' ' . $isActive . '" id="nav-' . $departmentName . '" role="tabpanel" aria-labelledby="#nav-' . $departmentName . '-tab" tabindex="0">';
-                            $allData = mysqli_query($conn,"SELECT * FROM `doctor_registration` WHERE r_department='$departmentName'" );
-                            echo '<div class="single-doctor-div">
-                                <div class="row">';
-                                if(mysqli_num_rows($allData)>0){
-                                    while($row=mysqli_fetch_array($allData)){
-                                        echo '<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                            <div class="doctor">
-                                                <div class="doctor-img-div">
-                                                    <img src="img/' .$row['image'] . '" alt="doctor1" class="doctor-img">
-                                                </div>
-                                                <div class="doctor-content">
-                                                    <h4 class="doctor_title">Dr. ' .$row['r_username'] . '</h4>
-                                                    <h5 class="doctor_sub_title">' .$row['post'] . '</h5>
-                                                    <a class="doctor_btn btn yellow-btn rounded-pill" href="doctorDetails.php?id='.$row['id'].'">View Details</a>
-                                                </div>
-                                            </div>
-                                        </div>';
-                                    }
-                                }
-                                else {
-                                    echo '<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <h2>No doctor in this department !!</h2>
-                                </div>';
-                                }
-
-
-                     
-                                echo '</div>
-                            </div>';
-
-                            echo '</div>';
-                        }
-                        ?>
+                    <p class= "text-white mb-5">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                    <a class="btn yellow-btn rounded-pill py-3 px-5 me-3" href="">Find Doctor</a>
+                    <a class="btn btn-outline-light rounded-pill py-3 px-5" href="">Read More</a>
+                   
                 </div>
+                <div class="col-lg-6">
+                    <div class="bg-white text-center rounded p-5">
+                        <h1 class="mb-4">Book An Appointment</h1>
+                        <?php
+                        include 'config.php';
+                        if(isset($_POST['submit'])){
+                            $doctor_id = $_GET['doctor_id'];
+                            $time = $_GET['time'];
+                            $appointment_date = $_GET['appointment_date'];
+    
+                            $name = $_POST['name'];
+                        
+                            $email = $_POST['email'];
+                            $mobile= $_POST['mobile'];
+                            $age = $_POST['age'];
+                            $adress = $_POST['address'];
+                        
+                            $mobilePattern = "/(\+88)?-?01[3-9]\d{8}/";
+                            if(!preg_match($mobilePattern , $mobile)){
+                              echo "<script>alert('**Only BD phone number is allowed!!')</script>";
+                              echo "<script>location.href='appointment-page2.php'</script>";
+                           }
+                           else if($age <= 0){
+                              echo "<script>alert('Invalid age. Age must be greater than 0.')</script>";
+                              echo "<script>location.href='appointment-page2.php'</script>";
+                           }
+                          else{
+                           $insertQuery = "INSERT INTO `appointment`(`name`,`email`,`mobile`,`age`,`address`,`status`,`appointment_time`,`appointment_date`,`doctor_id`) VALUES ('$name','$email','$mobile','$age','$adress','pending','$time','$appointment_date','$doctor_id')";
+                              if(!mysqli_query($conn,$insertQuery)){
+                                 die("not inserted");
+                           }
+                           else{
+                              echo "<script>alert('Thanks for filling out form!!')</script>";
+                                 echo "<script>location.href='index.php'</script>";
+                           }
+                          }
+                        }
 
-            </div>
+                            ?>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                            <div class="row g-3">
 
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="email" name="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="tel" name="mobile" class="form-control bg-light border-0" placeholder="Phone Number" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="text" name="age" class="form-control bg-light border-0" placeholder="Your Age" style="height: 55px;">
+                                </div>
+                                <div class="col-12 col-sm-12">
+                                    <input type="text" name="address" class="form-control bg-light border-0" placeholder="Your Address" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <button name="submit" class="btn yellow-btn w-100 py-3" type="submit">Make An Appointment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            </div>
-         </div>
-      </div>
+        </div>
+    </div>
+    <!-- Appointment End -->
+
+
 
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-light py-5">
+    <div class="container-fluid bg-dark text-light mt-5 py-5">
         <div class="container py-5">
             <div class="row g-5">
-               
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block yellow-txt text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                     <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>
@@ -228,7 +245,24 @@
         </div>
     </div>
     <!-- Footer End -->
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js"></script>
-   </body>
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
 </html>

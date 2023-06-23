@@ -26,7 +26,7 @@
                                 <i class="fa-solid fa-user-tie"></i>
                             </span>
                             <h4>Admin</h4>
-                            <a class="btn btn-primary" href="login.php">Login</a>
+                            <a class="btn btn-primary" href="adminLogin.php">Login</a>
                         </div>
                     </div>
                 </div>

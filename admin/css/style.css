@@ -229,3 +229,9 @@ a{
   font-size: 32px;
 }
 /*index css end here*/
+.error-appointment{
+  text-align: center;
+}
+.mt-0{
+  margin-top: 0 !important;
+}

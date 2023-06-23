@@ -2,11 +2,11 @@
 session_start();
 include 'config.php';
 $username = $_SESSION['r_username'];
-$result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
+$result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$username'");
 $row=mysqli_fetch_array($result);
 
 if (!isset($_SESSION['r_username'])) {
-    header('Location: login.php');
+    header('Location: doctorLogin.php');
     exit;
 }
 // else{
@@ -103,7 +103,7 @@ if (!isset($_SESSION['r_username'])) {
                   <div class="single-work">
                      <span class="work" href="#">Welcome!</span>
                      <p><?php echo $_SESSION['r_username']?>
-                     <span class="designation"><?php echo $row['r_designation']?></span>
+                     <span class="designation">Doctor</span>
                     </p>
 
                   </div>
@@ -112,23 +112,17 @@ if (!isset($_SESSION['r_username'])) {
                   <div class="single-work">
                      <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
                      <p>Appointment List</p>
-                     <a class="btn yellow-btn" href="appointmentList.php?id=<?php echo $row['id']?>">See Appointment</a>
+                     <a class="btn yellow-btn" href="appointmentList.php">See Appointment</a>
                   </div>
                </div>
                <div class="col-xl-3">
                   <div class="single-work">
                      <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
-                     <p>Report</p>
-                     <a class="btn yellow-btn" href="orderList.php">See Repot</a>
+                     <p>Upcomming Appointment Date</p>
+                     <a class="btn yellow-btn" href="setAppointmentDate.php?id=<?php echo $row['id']?>">Set Dates</a>
                   </div>
                </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Add Doctor</p>
-                     <a class="btn yellow-btn" href="addDoctor.php">Add Doctor</a>
-                  </div>
-               </div>
+
                <div class="col-xl-3">
                   <div class="single-work">
                      <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>

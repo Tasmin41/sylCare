@@ -16,6 +16,7 @@
                 include 'config.php';
                 if(isset($_POST['submit'])){
                     $r_username = $_POST['r_username'];
+                    $image = $_POST['image'];
                     $r_email = $_POST['r_email'];
                     $r_mobile = $_POST['r_mobile'];
                     $r_department = $_POST['r_department'];
@@ -26,6 +27,7 @@
                     $r_pass = $_POST['r_pass'];
                     $r_cpass = $_POST['r_cpass'];
                     $time_min = $_POST['time_min'];
+                    $time_hour = $_POST['time_hour'];
                     $mobilePattern = "/(\+88)?-?01[3-9]\d{8}/";
     
     
@@ -49,9 +51,11 @@
                         echo "<script>location.href='doctorRegistration.php'</script>";
                     }
                     else{
-                        $insert_query = "INSERT INTO `doctor_registration`(`r_username`,`r_email`,`r_mobile`,`r_department`,`post`,`degree`,`time`,`desc`,`time_min`,`r_pass`) VALUES ('$r_username','$r_email','$r_mobile','$r_department','$post','$degree','$time','$desc','$time_min','$r_pass')";
+                        echo "hello";
+                        $insert_query = "INSERT INTO `doctor_registration`(`r_username`,`image`,`r_email`,`r_mobile`,`r_department`,`post`,`degree`,`time`,`desc`,`time_min`,`time_hour`,`r_pass`) VALUES ('$r_username','$image','$r_email','$r_mobile','$r_department','$post','$degree','$time','$desc','$time_min','$time_hour','$r_pass')";
+                        echo "hello from 56";
                         if(!mysqli_query($conn,$insert_query)){
-                            die("not inserted");
+                            echo("Error description: " . mysqli_error($conn));
                         }
                         else{
                             echo "<script>location.href='doctorLogin.php'</script>";
@@ -61,18 +65,22 @@
 
 
             ?>
+            <h2 class="login-title">Doctor Registration</h2>
                 <form action="" method="post" class="register">
-                    <h2 class="text-white">Registration Form</h2>
+               
                     <div class="form-inner">
                         <div class="row g-3">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap "><label for="name">Enter Your username : </label><input class="form-control" type="text" name="r_username" required></div>
+                                <div class="input-wrap "><label for="r_username">Enter Your username : </label><input class="form-control" type="text" name="r_username" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap "><label for="email">Enter Your Email : </label><input class="form-control" type="email" name="r_email" required></div>
+                                <div class="input-wrap "><label for="image">Enter Your Picture : </label><input class="form-control" type="file" name="image" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap "><label for="contact">Phone Number : </label><input class="form-control" type="tel" name="r_mobile" required></div>
+                                <div class="input-wrap "><label for="r_email">Enter Your Email : </label><input class="form-control" type="email" name="r_email" required></div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="input-wrap "><label for="r_mobile">Phone Number : </label><input class="form-control" type="tel" name="r_mobile" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 
@@ -80,9 +88,15 @@
                                     <label for="address">Your Department: </label>
                                     <select name="r_department" class="form-select bg-light border-0" required>
                                         <option selected>Choose Department</option>
-                                        <option value="Cardiology">Cardiology</option>
-                                        <option value="Oncology">Oncology</option>
-                                        <option value="Urology">Urology</option>
+                                        <?php
+                                                include 'config.php';
+                                               
+                                                $allData = mysqli_query($conn,"SELECT * FROM `department`");
+    
+                                                while($row=mysqli_fetch_array($allData)){
+                                                    echo "<option value=$row[department_name]>$row[department_name]</option>";     
+                                                }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -96,7 +110,10 @@
                                 <div class="input-wrap"><label for="time">Consulting Time : </label><input class="form-control" placeholder="Sunday - Tuesday (3PM -6PM)" type="text" name="time" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap"><label for="time">Time Per patient (minute) : </label><input class="form-control" placeholder="15" type="number" name="time_min" required></div>
+                                <div class="input-wrap"><label for="time-hour">Appointment hour : </label><input class="form-control" placeholder="Total Hour per day" type="number" name="time_hour" required></div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="input-wrap"><label for="time-min">Time Per patient (minute) : </label><input class="form-control" placeholder="15" type="number" name="time_min" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap "><label for="pass">Password : </label><input class="form-control" type="password" name="r_pass" required></div>

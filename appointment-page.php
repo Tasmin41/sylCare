@@ -119,7 +119,7 @@
                                         <?php
                                                 include 'config.php';
                                                 $id = $_GET['r_username'];
-                                                $allData = mysqli_query($conn,"SELECT * FROM `admin_registration`  WHERE r_designation='Doctor'");
+                                                $allData = mysqli_query($conn,"SELECT * FROM `doctor_registration`");
                                                
                                                 while($row=mysqli_fetch_array($allData)){
                                                     echo "<option value=$row[r_username]>$row[r_username]</option>";     

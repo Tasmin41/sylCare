@@ -1,3 +1,18 @@
+<?php
+include 'config.php';
+
+$id = $_GET['id'];
+
+
+$dataFetchQuery = "SELECT * FROM `doctor_registration` WHERE id = '$id'";
+$record = mysqli_query($conn,$dataFetchQuery);
+$data = mysqli_fetch_array($record);
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -101,7 +116,7 @@
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="doctor-banner" >
                             <div class="doctor-details-banner-cntn">
-                                <h2 class="doctor-name">Dr. Santanu Borah</h2>
+                                <h2 class="doctor-name">Dr .<?php echo $data['r_username'] ;?></h2>
                                 <span class="line"></span>
                             </div>
                         </div>
@@ -116,20 +131,17 @@
             <div class="row align-items-center">
                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                     <div class="doctor-left">
-                        <img src="./img/doctor1.png" alt="doctor1" class="doctor-img">
+                        <img src="./img/<?php echo $data['image'];?>" alt="doctor1" class="doctor-img">
                     </div>
                 </div>
                 <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                     <div class="doctor-right">
-                        <h2>Dr. Santanu Borah</h2>
-                        <h4>Consultant, Anaesthesia</h4>
-                        <h4>MBBS, DA (Anaesthesiology), DNB (T)</h4>
-                        <h4>Sunday - Tuesday (3PM -6PM)</h4>
+                        <h2>Dr. <?php echo $data['r_username'];?></h2>
+                        <h4><?php echo $data['post'];?></h4>
+                        <h4><?php echo $data['degree'];?></h4>
+                        <h4><?php echo $data['time'];?></h4>
                         <h2 class="doctor-experi">Professional Experience</h2>
-                        <p>Former Senior Resident in Hindu Rao Hospital, Delhi
-                        Former Senior Resident in Deen Dayal Upadhyay Hospital, Delhi
-                        Former Registrar in St. Stephens Hospital Delhi
-                        Former Junior Consultant in Rahman Neurosurgical Hospital, Guwahati</p>
+                        <p><?php echo $data['desc'];?></p>
                     </div>
                 </div>
             </div>
@@ -138,122 +150,87 @@
     <section class="appointment-wrapper">
         <div class="container-fluid ">
             <div class="container">
+           
                 <h2 class="appointment-title">Appointment Lists</h2>
-                <div class="row align-items-center">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                        <div class="_doctor-appointment">
-                            <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                                    June 11 2023
-                                </button>
-                                <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">June 12 2023</button>
-                             
-                                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">June 13 2023</button>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
-                        <div class="doctor-appointmet-date">
-                            <div class="tab-content" id="v-pills-tabContent">
-                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-                                    <div class="appointmet-list-div">
-                                        <table class="table table-hover table-dark" id="myTable">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Serial</th>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Appointment time</th>
-                                            </tr>
 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                            <tr>
-                                            <td scope="col">2</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                                <div class="appointmet-list-div">
-                                        <table class="table table-hover table-dark" id="myTable">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Serial</th>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Appointment time</th>
-                                            </tr>
+                <div class="row">
+                <?php 
+                $appointment = "SELECT * FROM `appointment_date` WHERE doctor_id = '$id'";
+                $appointment_record = mysqli_query($conn,$appointment);
+                $appointment_data = mysqli_fetch_array($appointment_record);
+                if($appointment_data === null){
+                    echo "<h2>No appointment</h2>";
+                }
+                else{
+                    echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="day">
+                        <h4>'.$appointment_data['date1'].'</h4>
+                        <div class="appointmet-list-div">
+                                <table class="table table-hover table-dark" id="myTable">
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Patient Name</th>
+                                        <th scope="col">Appointment time</th>
+                                        <th scope="col">Status</th>
+                                        </tr>
 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                            <tr>
-                                            <td scope="col">2</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                               
-                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
-                                <div class="appointmet-list-div">
-                                    <table class="table table-hover table-dark" id="myTable">
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">Serial</th>
-                                            <th scope="col">Patient Name</th>
-                                            <th scope="col">Appointment time</th>
-                                            </tr>
+                                    </thead>
+                                    <tbody>';
+                                    $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id'" );
+                                    $noOfRow = mysqli_num_rows($allData);
+                                    $availableRow;
+                                   
+                                    $starting_time = strtotime($appointment_data['date1_time']);
+                                    $time_interval = $appointment_data['date1_time_patient'] * 60; // 15 minutes in seconds
+                                    if($noOfRow > 0){
+                                        $availableRow = $appointment_data['date1_patient'] - $noOfRow;
+                                    }
+                                    else{
+                                        $availableRow = $appointment_data['date1_patient'];
+                                    }
+                                    $serial = 1;
+                                   
+                                    for($i = 1; $i <= $noOfRow; $i++){
+                                        if($noOfRow>0){
+                                            while($row=mysqli_fetch_array($allData)){
+                                                $formattedTime = date("h.iA", $starting_time + (($serial - 1) * $time_interval));
+                                                echo '<tr>
+                                                <td scope="col">'. $serial.'</td>
+                                                <td scope="col">'. $row['name'].'</td>
+                                                <td scope="col">'.$formattedTime.'</td>
+                                                <td scope="col"><a class="booked app-btn" href="">Booked</a></td>
+                                                </tr>
+                                                ';
+                                                $serial++;
+                       
 
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
+                                            }}
+          
+                                    }
+                                    if($availableRow > 0){
+                                        for($j = 1; $j <= $availableRow; $j++){
+                                            $formattedTime = date("h.iA", $starting_time + (($serial - 1) * $time_interval));
+                                            echo '<tr>
+                                            <td scope="col">'. $serial.'</td>
+                                            <td scope="col">-</td>
+                                            <td scope="col">'.$formattedTime.'</td>
+                                            <td scope="col"><a class="available app-btn" href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1'].'">available</a></td>
                                             </tr>
-                                            <tr>
-                                            <td scope="col">2</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                            <tr>
-                                            <td scope="col">1</td>
-                                            <td scope="col">Afrin</td>
-                                            <td scope="col">8.00 PM</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
+                                            ';
+                                            $serial++;
+                                        }
+                                    }
+                                     echo '</tbody>
+                                     </table>
+                                 </div>
+                         </div>
+                     </div>';
+
+                }
+                ?>
+
                 </div>
             </div>
         </div>

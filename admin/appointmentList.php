@@ -5,19 +5,6 @@ if (!isset($_SESSION['r_username'])) {
     header('Location: login.php');
     exit;
 }
-// else{
-//     include 'config.php';
-//     $username = $_SESSION['r_username'];
-//     echo $username;
-// // Check if the session variable is not set
-// $result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
-// $row=mysqli_fetch_array($result);
-// echo $row['r_email'];
-// }
-
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -120,74 +107,48 @@ if (!isset($_SESSION['r_username'])) {
                      <tbody>
                         <?php
                            include 'config.php';
-                           $id = $_GET['id'];
+                        //    $id = $_GET['id'];
                           
-                            $result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE id='$id'");
-                            $row=mysqli_fetch_array($result);
+                        //     $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE id='$id'");
+                        //     $row=mysqli_fetch_array($result);
 
-                            $value = $row['r_username'];
+                            $value = $_SESSION['r_username'];
                             $words = explode(" ", $value);
                             $firstWord = $words[0];
-                            
-                           if($row['r_designation'] ==="Doctor"){
-
+                           
                             $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor='$firstWord'");
 
                             // $row1 = mysqli_fetch_assoc($allData);
-                           
-                            $i = 1;
-                           echo "list";
-                            while($row=mysqli_fetch_array($allData)){
-                                // echo "hello";
-                                echo "<tr>
-                                    <td>$i</td>                       
-                                    <td>$row[name]</td>
-                                    <td>$row[age]</td>
-                                    <td>$row[email]</td>
-                                    <td>$row[mobile]</td>
-                                    <td>$row[date_time]</td>                       
-                                    <td>Dr. $row[doctor]</td>
-                                    <td>$row[appointment_time]</td>
-                                    <td  class='myButton'>$row[status]</td>
-                                    <td><a class='btn btn-primary' href='edit.php?id=$row[id]'>Edit</a></td>
-                                    <td><a class='btn btn-primary' href='delete.php?id=$row[id]'>Delete</a></td>
-                                </tr>"; 
-                                $i++;    
+                            if(mysqli_num_rows($allData)>0){
+                                $i = 1;
+                                while($row=mysqli_fetch_array($allData)){
+                                  
+                                    echo "<tr>
+                                        <td>$i</td>                       
+                                        <td>$row[name]</td>
+                                        <td>$row[age]</td>
+                                        <td>$row[email]</td>
+                                        <td>$row[mobile]</td>
+                                        <td>$row[date_time]</td>                       
+                                        <td>Dr. $row[doctor]</td>
+                                        <td>$row[appointment_time]</td>
+                                        <td  class='myButton'>$row[status]</td>
+                                        <td><a class='btn btn-primary' href='edit.php?id=$row[id]'>Edit</a></td>
+                                        <td><a class='btn btn-primary' href='delete.php?id=$row[id]'>Delete</a></td>
+                                    </tr>"; 
+                                    $i++;    
+                                }
                             }
-                           }
-                           else{
-                            $allData = mysqli_query($conn,"SELECT * FROM `appointment`");
-                            $row1 = mysqli_fetch_assoc($allData);
-                           
-                            $i = 1;
-                            while($row=mysqli_fetch_array($allData)){
+                            else{
                                 echo "<tr>
-                                    <td>$i</td>                       
-                                    <td>$row[name]</td>
-                                    <td>$row[age]</td>
-                                    <td>$row[email]</td>
-                                    <td>$row[mobile]</td>
-                                    <td>$row[date_time]</td>                       
-                                    <td>Dr. $row[doctor]</td>
-                                    <td>$row[appointment_time]</td>
-                                    <td  class='myButton'>$row[status]</td>
-                                    <td><a class='btn btn-primary' href='edit.php?id=$row[id]'>Edit</a></td>
-                                    <td><a class='btn btn-primary' href='delete.php?id=$row[id]'>Delete</a></td>
-                                </tr>";   
-                                $i++;  
+                                    <td colspan='12' class='error-appointment'>No appointment</td>
+                                </tr>";
                             }
-                           }
 
                            ?>
                      </tbody>
                   </table>
-                <div id="popup" class="popup">
-                    <div class="popup-content">
-                        <span class="close">&times;</span>
-                        <h3>Popup Content</h3>
-                        <p>This is the content of the popup.</p>
-                    </div>
-                </div>
+
                </div>
             </div>
          </div>

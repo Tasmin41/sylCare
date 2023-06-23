@@ -80,7 +80,7 @@
                <h2 class="heading">See All Doctors List</h2>
                <?php
                            include 'config.php';
-                           $allData = mysqli_query($conn,"SELECT * FROM `admin_registration` WHERE r_designation = 'Doctor'" );
+                           $allData = mysqli_query($conn,"SELECT * FROM `doctor_registration`" );
                            while($row=mysqli_fetch_array($allData)){
                                echo "<div class='col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12'>
                                <div class='single-doctor'>
@@ -88,7 +88,7 @@
                                     <p>$row[r_department]</p>
                                     <p>$row[r_email]</p>
                                     <p>$row[r_mobile]</p>
-                                    <a class='btn btn-primary' href='singleDoctorAppointment.php?r_username=$row[r_username]'>See Appointment </a>
+                                    <a class='btn btn-primary' href=''>See Appointment </a>
                                </div>
                            </div>";     
                            }
