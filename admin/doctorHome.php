@@ -9,15 +9,7 @@ if (!isset($_SESSION['r_username'])) {
     header('Location: doctorLogin.php');
     exit;
 }
-// else{
-//     include 'config.php';
-//     $username = $_SESSION['r_username'];
-//     echo $username;
-// // Check if the session variable is not set
-// $result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
-// $row=mysqli_fetch_array($result);
-// echo $row['r_email'];
-// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +104,7 @@ if (!isset($_SESSION['r_username'])) {
                   <div class="single-work">
                      <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
                      <p>Appointment List</p>
-                     <a class="btn yellow-btn" href="appointmentList.php">See Appointment</a>
+                     <a class="btn yellow-btn" href="appointmentList.php?id=<?php echo $row['id']?> ">See Appointment</a>
                   </div>
                </div>
                <div class="col-xl-3">

@@ -178,7 +178,7 @@ $data = mysqli_fetch_array($record);
 
                                     </thead>
                                     <tbody>';
-                                    $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id'" );
+                                    $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date1]'" );
                                     $noOfRow = mysqli_num_rows($allData);
                                     $availableRow;
                                    
@@ -220,7 +220,7 @@ $data = mysqli_fetch_array($record);
                                                 <td scope="col">'. $i.'</td>
                                                 <td scope="col">-</td>
                                                 <td scope="col">'. $formattedTime.'</td>
-                                                <td scope="col"><a class="available app-btn " href="doctorDetails.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1']. '&serial=' . $i.'">available</a></td>
+                                                <td scope="col"><a class="available app-btn " href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1']. '&serial=' . $i.'">available</a></td>
                                                 </tr>';
                                             }
 
@@ -234,6 +234,151 @@ $data = mysqli_fetch_array($record);
                                  </div>
                          </div>
                      </div>';
+
+                     //day2 starts from here
+                     echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                     <div class="day">
+                         <h4>'.$appointment_data['date2'].'</h4>
+                         <div class="appointmet-list-div">
+                                 <table class="table table-hover table-dark" id="myTable">
+                                     <thead>
+                                         <tr>
+                                         <th scope="col">Serial</th>
+                                         <th scope="col">Patient Name</th>
+                                         <th scope="col">Appointment time</th>
+                                         <th scope="col">Status</th>
+                                         </tr>
+ 
+                                     </thead>
+                                     <tbody>';
+                                     $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date2]'" );
+                                     $noOfRow = mysqli_num_rows($allData);
+                                     $availableRow;
+                                    
+                                     $starting_time = strtotime($appointment_data['date2_time']);
+                                     $time_interval = $appointment_data['date2_time_patient'] * 60; // 15 minutes in seconds
+                                     if($noOfRow > 0){
+                                         $availableRow = $appointment_data['date2_patient'] - $noOfRow;
+                                     }
+                                     else{
+                                         $availableRow = $appointment_data['date2_patient'];
+                                     }
+                                     $serial = 1;
+                                     $rows = mysqli_fetch_all($allData, MYSQLI_ASSOC);
+                                    $i=1;
+                                     while($i <= $appointment_data['date2_patient']){
+                                         
+                                             $formattedTime = date("h.iA", $starting_time + (($i - 1) * $time_interval));
+                                             $trackRow = 0;
+                                 
+                                           
+                                             foreach ($rows as $row) {
+                                                 if($i == $row['serial_no']){
+                                                     echo '<tr>
+                                                     <td scope="col">'. $i.'</td>
+                                                     <td scope="col">'.$row['name'].'</td>
+                                                     <td scope="col">'. $formattedTime.'</td>
+                                                     <td scope="col"><a class="booked app-btn " href="">Booked</a></td>
+                                                     </tr>';
+                                                     $trackRow =1;
+                                                    
+                                                    
+                                                 }
+ 
+ 
+                                             
+                                             }
+                                             if($trackRow == 0){
+                                                 echo '<tr>
+                                                 <td scope="col">'. $i.'</td>
+                                                 <td scope="col">-</td>
+                                                 <td scope="col">'. $formattedTime.'</td>
+                                                 <td scope="col"><a class="available app-btn " href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date2']. '&serial=' . $i.'">available</a></td>
+                                                 </tr>';
+                                             }
+ 
+                                             $i++;
+                                            
+                                         
+                                     }
+ 
+                                      echo '</tbody>
+                                      </table>
+                                  </div>
+                          </div>
+                      </div>';
+                     //day3 starts from here
+                     echo '<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                     <div class="day">
+                         <h4>'.$appointment_data['date3'].'</h4>
+                         <div class="appointmet-list-div">
+                                 <table class="table table-hover table-dark" id="myTable">
+                                     <thead>
+                                         <tr>
+                                         <th scope="col">Serial</th>
+                                         <th scope="col">Patient Name</th>
+                                         <th scope="col">Appointment time</th>
+                                         <th scope="col">Status</th>
+                                         </tr>
+ 
+                                     </thead>
+                                     <tbody>';
+                                     $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date3]'" );
+                                     $noOfRow = mysqli_num_rows($allData);
+                                     $availableRow;
+                                    
+                                     $starting_time = strtotime($appointment_data['date3_time']);
+                                     $time_interval = $appointment_data['date3_time_patient'] * 60; // 15 minutes in seconds
+                                     if($noOfRow > 0){
+                                         $availableRow = $appointment_data['date3_patient'] - $noOfRow;
+                                     }
+                                     else{
+                                         $availableRow = $appointment_data['date3_patient'];
+                                     }
+                                     $serial = 1;
+                                     $rows = mysqli_fetch_all($allData, MYSQLI_ASSOC);
+                                    $i=1;
+                                     while($i <= $appointment_data['date3_patient']){
+                                         
+                                             $formattedTime = date("h.iA", $starting_time + (($i - 1) * $time_interval));
+                                             $trackRow = 0;
+                                 
+                                           
+                                             foreach ($rows as $row) {
+                                                 if($i == $row['serial_no']){
+                                                     echo '<tr>
+                                                     <td scope="col">'. $i.'</td>
+                                                     <td scope="col">'.$row['name'].'</td>
+                                                     <td scope="col">'. $formattedTime.'</td>
+                                                     <td scope="col"><a class="booked app-btn " href="">Booked</a></td>
+                                                     </tr>';
+                                                     $trackRow =1;
+                                                    
+                                                    
+                                                 }
+ 
+ 
+                                             
+                                             }
+                                             if($trackRow == 0){
+                                                 echo '<tr>
+                                                 <td scope="col">'. $i.'</td>
+                                                 <td scope="col">-</td>
+                                                 <td scope="col">'. $formattedTime.'</td>
+                                                 <td scope="col"><a class="available app-btn " href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date3']. '&serial=' . $i.'">available</a></td>
+                                                 </tr>';
+                                             }
+ 
+                                             $i++;
+                                            
+                                         
+                                     }
+ 
+                                      echo '</tbody>
+                                      </table>
+                                  </div>
+                          </div>
+                      </div>';
 
                 }
                 ?>

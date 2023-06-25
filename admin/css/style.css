@@ -235,3 +235,8 @@ a{
 .mt-0{
   margin-top: 0 !important;
 }
+._single_app{
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #1B3764;
+}

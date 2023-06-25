@@ -144,8 +144,9 @@
                                  die("not inserted");
                            }
                            else{
-                              echo "<script>alert('Thanks for filling out form!!')</script>";
-                                 echo "<script>location.href='doctorDetails?id='$doctor_id'</script>";
+                            echo "<script>location.href='doctorDetails?id='$doctor_id'</script>";
+                            //   echo "<script>alert('Thanks for filling out form!!')</script>";
+                                
                            }
                           }
                         }

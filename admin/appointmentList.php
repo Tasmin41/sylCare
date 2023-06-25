@@ -1,6 +1,10 @@
 <?php
 session_start();
+// include 'config.php';
+// $username = $_SESSION['r_username'];
+// $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$username'");
 
+// $row=mysqli_fetch_array($result);
 if (!isset($_SESSION['r_username'])) {
     header('Location: login.php');
     exit;
@@ -85,69 +89,203 @@ if (!isset($_SESSION['r_username'])) {
     <!-- Navbar End -->
       <div class="login">
          <div class="container">
-            <div class="row d-flex justify-content-center">
+            <div class="div ">
                <h2 class="heading">See All Appointment List</h2>
-               <div class="col-xl-12 ">
-                  <table class="table table-hover table-dark" id="myTable">
+               <div class="row justify-content-center">
+
+                <?php
+                 include 'config.php';
+                 $id = $_GET['id'];
+                
+                 $appointment = "SELECT * FROM `appointment_date` WHERE doctor_id = '$id'";
+                 $appointment_record = mysqli_query($conn,$appointment);
+                 $appointment_data = mysqli_fetch_array($appointment_record);
+
+
+                 if($appointment_data === null){
+                    echo "<h2>No appointment</h2>";
+                }
+                 else{
+
+                    echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                    <div class="_single_app">
+                        <h4> '.$appointment_data['date1'].'</h4>
+                        <table class="table table-hover table-dark" id="myTable">
                      <thead>
                         <tr>
                            <th scope="col">Serial</th>
-                           <th scope="col">Patient Name</th>
-                           <th scope="col">Patient Age</th>
-                           <th scope="col">Patient Email</th>
-                           <th scope="col">Patient Contact</th>
-                           <th scope="col">Appointment Requested time</th>
-                           <th scope="col">Doctor Name</th>
-                           <th scope="col">Appointment time</th>
-                           <th scope="col">Status</th>
-                           <th scope="col">Delete</th>
+                           <th scope="col">Patint Name</th>
+                           <th scope="col">Email</th>
+                           <th scope="col">Age</th>
+                           <th scope="col">Contact</th>
+
+                           <th scope="col">Address</th>
+                           <th scope="col">Time</th>
+
+
                            <th scope="col">Edit</th>
+                           <th scope="col">Delete</th>
                         </tr>
                      </thead>
-                     <tbody>
-                        <?php
-                           include 'config.php';
-                        //    $id = $_GET['id'];
-                          
-                        //     $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE id='$id'");
-                        //     $row=mysqli_fetch_array($result);
+                     <tbody>';
+                     
+                     $appData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date1]'");
 
-                            $value = $_SESSION['r_username'];
-                            $words = explode(" ", $value);
-                            $firstWord = $words[0];
+                     if(mysqli_num_rows($appData)>0){
+                        $i = 1;
+                        while($row1=mysqli_fetch_array($appData)){
+                            
+                            $starting_time = strtotime($row1['appointment_time']);
+                            echo "<tr>
+                                <td>$row1[serial_no]</td>                       
+                                <td>$row1[name]</td>
+                                <td>$row1[email]</td>
+                                <td>$row1[age]</td>
+                                <td>$row1[mobile]</td>
+                                <td>$row1[address]</td>
+                                <td> $row1[appointment_time]</td>
+
+
+                                <td><a class='btn btn-primary' href=''>Edit</a></td>
+                                <td><a class='btn btn-primary' href=''>Delete</a></td>
+                            </tr>"; 
+                            $i++;    
+                        }
+                    }
+                    else{
+                        echo "<tr>
+                            <td colspan='12' class='error-appointment'>No appointment</td>
+                        </tr>";
+                    }
+
                            
-                            $allData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor='$firstWord'");
 
-                            // $row1 = mysqli_fetch_assoc($allData);
-                            if(mysqli_num_rows($allData)>0){
-                                $i = 1;
-                                while($row=mysqli_fetch_array($allData)){
-                                  
-                                    echo "<tr>
-                                        <td>$i</td>                       
-                                        <td>$row[name]</td>
-                                        <td>$row[age]</td>
-                                        <td>$row[email]</td>
-                                        <td>$row[mobile]</td>
-                                        <td>$row[date_time]</td>                       
-                                        <td>Dr. $row[doctor]</td>
-                                        <td>$row[appointment_time]</td>
-                                        <td  class='myButton'>$row[status]</td>
-                                        <td><a class='btn btn-primary' href='edit.php?id=$row[id]'>Edit</a></td>
-                                        <td><a class='btn btn-primary' href='delete.php?id=$row[id]'>Delete</a></td>
-                                    </tr>"; 
-                                    $i++;    
-                                }
-                            }
-                            else{
-                                echo "<tr>
-                                    <td colspan='12' class='error-appointment'>No appointment</td>
-                                </tr>";
-                            }
+                        echo ' </tbody>
+                        </table>
+                          </div>
+                      </div>';
 
-                           ?>
-                     </tbody>
-                  </table>
+                      //day2 starts
+                      echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                      <div class="_single_app">
+                          <h4> '.$appointment_data['date2'].'</h4>
+                          <table class="table table-hover table-dark" id="myTable">
+                       <thead>
+                          <tr>
+                             <th scope="col">Serial</th>
+                             <th scope="col">Patint Name</th>
+                             <th scope="col">Email</th>
+                             <th scope="col">Age</th>
+                             <th scope="col">Contact</th>
+  
+                             <th scope="col">Address</th>
+                             <th scope="col">Time</th>
+  
+  
+                             <th scope="col">Edit</th>
+                             <th scope="col">Delete</th>
+                          </tr>
+                       </thead>
+                       <tbody>';
+                       
+                       $appData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date2]'");
+  
+                       if(mysqli_num_rows($appData)>0){
+                          $i = 1;
+                          while($row1=mysqli_fetch_array($appData)){
+                              
+                              $starting_time = strtotime($row1['appointment_time']);
+                              echo "<tr>
+                                  <td>$row1[serial_no]</td>                       
+                                  <td>$row1[name]</td>
+                                  <td>$row1[email]</td>
+                                  <td>$row1[age]</td>
+                                  <td>$row1[mobile]</td>
+                                  <td>$row1[address]</td>
+                                  <td> $row1[appointment_time]</td>
+  
+  
+                                  <td><a class='btn btn-primary' href=''>Edit</a></td>
+                                  <td><a class='btn btn-primary' href=''>Delete</a></td>
+                              </tr>"; 
+                              $i++;    
+                          }
+                      }
+                      else{
+                          echo "<tr>
+                              <td colspan='12' class='error-appointment'>No appointment</td>
+                          </tr>";
+                      }
+  
+                             
+  
+                          echo ' </tbody>
+                          </table>
+                            </div>
+                        </div>';
+                      //day3 starts
+                      echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                      <div class="_single_app">
+                          <h4> '.$appointment_data['date3'].'</h4>
+                          <table class="table table-hover table-dark" id="myTable">
+                       <thead>
+                          <tr>
+                             <th scope="col">Serial</th>
+                             <th scope="col">Patint Name</th>
+                             <th scope="col">Email</th>
+                             <th scope="col">Age</th>
+                             <th scope="col">Contact</th>
+  
+                             <th scope="col">Address</th>
+                             <th scope="col">Time</th>
+  
+  
+                             <th scope="col">Edit</th>
+                             <th scope="col">Delete</th>
+                          </tr>
+                       </thead>
+                       <tbody>';
+                       
+                       $appData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And appointment_date='$appointment_data[date3]'");
+  
+                       if(mysqli_num_rows($appData)>0){
+                          $i = 1;
+                          while($row1=mysqli_fetch_array($appData)){
+                              
+                              $starting_time = strtotime($row1['appointment_time']);
+                              echo "<tr>
+                                  <td>$row1[serial_no]</td>                       
+                                  <td>$row1[name]</td>
+                                  <td>$row1[email]</td>
+                                  <td>$row1[age]</td>
+                                  <td>$row1[mobile]</td>
+                                  <td>$row1[address]</td>
+                                  <td> $row1[appointment_time]</td>
+  
+  
+                                  <td><a class='btn btn-primary' href=''>Edit</a></td>
+                                  <td><a class='btn btn-primary' href=''>Delete</a></td>
+                              </tr>"; 
+                              $i++;    
+                          }
+                      }
+                      else{
+                          echo "<tr>
+                              <td colspan='12' class='error-appointment'>No appointment</td>
+                          </tr>";
+                      }
+  
+                             
+  
+                          echo ' </tbody>
+                          </table>
+                            </div>
+                        </div>';
+
+
+                 }
+
+                ?>
 
                </div>
             </div>
