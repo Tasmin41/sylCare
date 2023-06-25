@@ -193,7 +193,7 @@ $data = mysqli_fetch_array($record);
                                     $serial = 1;
                                     $rows = mysqli_fetch_all($allData, MYSQLI_ASSOC);
                                    $i=1;
-                                    while($i <= 10){
+                                    while($i <= $appointment_data['date1_patient']){
                                         
                                             $formattedTime = date("h.iA", $starting_time + (($i - 1) * $time_interval));
                                             $trackRow = 0;
@@ -220,7 +220,7 @@ $data = mysqli_fetch_array($record);
                                                 <td scope="col">'. $i.'</td>
                                                 <td scope="col">-</td>
                                                 <td scope="col">'. $formattedTime.'</td>
-                                                <td scope="col"><a class="available app-btn " href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1']. '&serial=' . $i.'">available</a></td>
+                                                <td scope="col"><a class="available app-btn " href="doctorDetails.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1']. '&serial=' . $i.'">available</a></td>
                                                 </tr>';
                                             }
 

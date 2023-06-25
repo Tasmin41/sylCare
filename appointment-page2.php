@@ -120,13 +120,16 @@
                             $appointment_date = $_GET['appointment_date'];
                             $serial = $_GET['serial'];
                             $name = $_POST['name'];
-                            echo $time;
+                            
                             $email = $_POST['email'];
                             $mobile= $_POST['mobile'];
                             $age = $_POST['age'];
                             $adress = $_POST['address'];
                         
                             $mobilePattern = "/(\+88)?-?01[3-9]\d{8}/";
+                            $timeConvert = DateTime::createFromFormat('h.ia', $time);
+                            $timeFormatted = $timeConvert->format('H:i:s');
+
                             if(!preg_match($mobilePattern , $mobile)){
                               echo "<script>alert('**Only BD phone number is allowed!!')</script>";
                               echo "<script>location.href='appointment-page2.php'</script>";
@@ -136,13 +139,13 @@
                               echo "<script>location.href='appointment-page2.php'</script>";
                            }
                           else{
-                           $insertQuery = "INSERT INTO `appointment`(`name`,`email`,`mobile`,`age`,`address`,`status`,`appointment_time`,`appointment_date`,`doctor_id`,`serial_no`) VALUES ('$name','$email','$mobile','$age','$adress','pending','$time','$appointment_date','$doctor_id','$serial')";
+                           $insertQuery = "INSERT INTO `appointment`(`name`,`email`,`mobile`,`age`,`address`,`status`,`appointment_time`,`appointment_date`,`doctor_id`,`serial_no`) VALUES ('$name','$email','$mobile','$age','$adress','pending','$timeFormatted','$appointment_date','$doctor_id','$serial')";
                               if(!mysqli_query($conn,$insertQuery)){
                                  die("not inserted");
                            }
                            else{
                               echo "<script>alert('Thanks for filling out form!!')</script>";
-                                 echo "<script>location.href='appointment-page2.php'</script>";
+                                 echo "<script>location.href='doctorDetails?id='$doctor_id'</script>";
                            }
                           }
                         }

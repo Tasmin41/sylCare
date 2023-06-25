@@ -1,16 +1,38 @@
+<?php
+session_start();
+$id = $_GET['id'];
+include 'config.php';
+//echo $id;
+$dataFetchQuery = "SELECT * FROM `appointment_date` WHERE id = '$id'";
+$record = mysqli_query($conn,$dataFetchQuery);
+$data = mysqli_fetch_array($record);
+if (!isset($_SESSION['r_username'])) {
+    header('Location: login.php');
+    exit;
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Department</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-        <!-- Topbar Start -->
-        <div class="container-fluid py-2 border-bottom d-none d-lg-block">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>All appointmentList</title>
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
+      <link rel="stylesheet" href="css/style.css">
+   </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
+   <body>
+    <!-- Topbar Start -->
+    <div class="container-fluid py-2 border-bottom d-none d-lg-block">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
@@ -57,10 +79,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="home.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-
                         <a href="login.php" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
@@ -69,62 +90,68 @@
         </div>
     </div>
     <!-- Navbar End -->
-    <section class="admin-area bg-light">
-        <div class="container">
-            <div class="form">
-            <?php
-                include 'config.php';
-                if(isset($_POST['submit'])){
-                    $day1 = $_POST['date1'];
-                    $date1_time = $_POST['date1_time'];
-                    $date1_patient = $_POST['date1_patient'];
-                    $date1_time_patient = $_POST['date1_time_patient'];
-
-
-                    $date2_time = $_POST['date2_time'];
-                    $day2 = $_POST['date2'];
-                    $date2_patient = $_POST['date2_patient'];
-                    $date2_time_patient = $_POST['date2_time_patient'];
-
-
-                    $day3 = $_POST['date3'];
-                    $date3_time = $_POST['date3_time'];
-                    $date3_patient = $_POST['date3_patient'];
-                    $date3_time_patient = $_POST['date3_time_patient'];
-
-                    $id = $_GET['id'];
-                    $insert_query = "INSERT INTO `appointment_date`(`date1`,`date1_time`,`date1_patient`,`date1_time_patient`,`date2`,`date2_time`,`date2_patient`,`date2_time_patient`,`date3`,`date3_time`,`date3_patient`,`date3_time_patient`,`doctor_id`) VALUES ('$day1','$date1_time','$date1_patient','$date1_time_patient','$day2','$date2_time','$date2_patient','$date2_time_patient','$day3','$date3_time','$date3_patient','$date3_time_patient','$id')";
-                    if(!mysqli_query($conn,$insert_query)){
-                        die("not inserted");
+      <div class="login">
+         <div class="container">
+            <div class="row d-flex justify-content-center">
+               <h2 class="heading">Edit appointment status</h2>
+        
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div>
+                    <!--update course php start -->
+                    <?php
+                    include 'config.php';
+                    if(isset($_POST['submit'])){
+                        $day1 = $_POST['date1'];
+                        $date1_time = $_POST['date1_time'];
+                        $date1_patient = $_POST['date1_patient'];
+                        $date1_time_patient = $_POST['date1_time_patient'];
+    
+    
+                        $date2_time = $_POST['date2_time'];
+                        $day2 = $_POST['date2'];
+                        $date2_patient = $_POST['date2_patient'];
+                        $date2_time_patient = $_POST['date2_time_patient'];
+    
+    
+                        $day3 = $_POST['date3'];
+                        $date3_time = $_POST['date3_time'];
+                        $date3_patient = $_POST['date3_patient'];
+                        $date3_time_patient = $_POST['date3_time_patient'];
+    
+                        $id = $_GET['id'];
+                        $updateQuery ="UPDATE appointment_date SET `date1`= '$day1', `date1_time`= '$date1_time',`date1_patient`= '$date1_patient', `date1_time_patient`= '$date1_time_patient',`date2`= '$day2', `date2_time`= '$date2_time',`date2_patient`= '$date2_patient', `date2_time_patient`= '$date2_time_patient',`date3`= '$day3', `date3_time`= '$date3_time',`date3_patient`= '$date3_patient', `date3_time_patient`= '$date3_time_patient' WHERE id = '$id'";
+                        if(!mysqli_query($conn,$updateQuery)){
+                            die("not inserted");
+                        }
+                        else{
+                            echo "<script>location.href='doctorHome.php'</script>";
+                        }
                     }
-                    else{
-                        echo "<script>location.href='doctorHome.php'</script>";
-                    }
-                }
-            ?>
-                <h2 class="login-title mt-0">Add Date</h2>
-                <form action="" method="post" class="register">
+                    ?>
+            <!--update course php end -->
+
+            <form action="" method="post" class="register">
                     <div class="form-inner">
 
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date1">Day 1: </label>
-                                    <input class="form-control" type="date" name="date1" required>
+                                    <input class="form-control" type="date" value="<?php echo $data['date1'] ;?>" name="date1" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date1_time">Day 1 starting time: </label>
-                                    <input class="form-control" type="time" name="date1_time" required>
+                                    <input class="form-control" type="time" value="<?php echo $data['date1_time'] ;?>" name="date1_time" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date1_patient">Day 1 total patient: </label>
-                                    <input class="form-control" type="number" name="date1_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date1_patient'] ;?>" name="date1_patient" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date1_time_patient">Day 1 time for per patient(min): </label>
-                                    <input class="form-control" type="number" name="date1_time_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date1_time_patient'] ;?>" name="date1_time_patient" required>
                                 </div>
                             </div>
                         </div>
@@ -133,22 +160,22 @@
                             <hr>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date2">Day 2: </label>
-                                    <input class="form-control" type="date" name="date2" required>
+                                    <input class="form-control" type="date" value="<?php echo $data['date2'] ;?>" name="date2" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date2_time">Day 2 starting time: </label>
-                                    <input class="form-control" type="time" name="date2_time" required>
+                                    <input class="form-control" type="time" value="<?php echo $data['date2_time'] ;?>" name="date2_time" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date2_patient">Day 2 total patient: </label>
-                                    <input class="form-control" type="number" name="date2_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date2_patient'] ;?>" name="date2_patient" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date2_time_patient">Day 2 time for per patient(min): </label>
-                                    <input class="form-control" type="number" name="date2_time_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date2_time_patient'] ;?>" name="date2_time_patient" required>
                                 </div>
                             </div>
                         </div>
@@ -158,22 +185,22 @@
                             <hr>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date3">Day 3: </label>
-                                    <input class="form-control" type="date" name="date3" required>
+                                    <input class="form-control" type="date" value="<?php echo $data['date3'] ;?>" name="date3" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date3_time">Day 3 starting time: </label>
-                                    <input class="form-control" type="time" name="date3_time" required>
+                                    <input class="form-control" type="time" value="<?php echo $data['date3_time'] ;?>" name="date3_time" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date3_patient">Day 3 total patient: </label>
-                                    <input class="form-control" type="number" name="date3_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date3_patient'] ;?>" name="date3_patient" required>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap mb-3 "><label for="date3_time_patient">Day 3 time for per patient(min): </label>
-                                    <input class="form-control" type="number" name="date3_time_patient" required>
+                                    <input class="form-control" type="number" value="<?php echo $data['date3_time_patient'] ;?>" name="date3_time_patient" required>
                                 </div>
                             </div>
                         </div>
@@ -187,15 +214,16 @@
 
 
 
-                    <button class="btn btn-lg yellow-btn" type="submit" name ="submit">Save</button>
+                    <button class="btn btn-lg yellow-btn" type="submit" name ="submit">Update</button>
                     </div>
                 </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light py-5">
+         </div>
+      </div>
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light py-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
@@ -259,7 +287,7 @@
         </div>
     </div>
     <!-- Footer End -->
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/main.js"></script>
+   </body>
 </html>

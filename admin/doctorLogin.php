@@ -21,7 +21,7 @@
                     $l_pass=$_POST['l_pass'];
 
                     $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$l_username' And r_pass='$l_pass'");
-            
+
                     if(mysqli_num_rows($result)>0){
                         session_start();
                         $_SESSION['r_username']=$l_username;
@@ -30,6 +30,7 @@
                     }
                     else{
                         echo "<script>alert('Incorrect Username And Password!!')</script>";
+                       
                         echo "<script>location.href='doctorLogin.php'</script>";
                     }
                 }
