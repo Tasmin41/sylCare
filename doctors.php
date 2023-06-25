@@ -90,21 +90,20 @@
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <?php
                           include 'config.php';
-                        // Retrieve department names from the database
+  
                         $departments = mysqli_query($conn, "SELECT * FROM department");
 
-                        // Loop through the departments
                         while ($row = mysqli_fetch_assoc($departments)) {
                             $departmentName = $row['department_name'];
                             $departmentId = $row['id'];
                             $isActive = $departmentId == 1 ? 'active' : ''; // Set the first department as active
-
-                            // Generate the navigation tab button
                             echo '<button class="nav-link ' . $isActive . '" id="nav-' . $departmentName . '-tab" data-bs-toggle="tab" data-bs-target="#nav-' . $departmentName . '" type="button" role="tab" aria-controls="nav-' . $departmentName . '" aria-selected="' . ($isActive ? 'true' : 'false') . '">' . $departmentName . '</button>';
                         }
+
                         ?>
                     </div>
                 </nav>
+                
                 <div class="tab-content" id="nav-tabContent">
                 <?php
                           include 'config.php';

@@ -191,37 +191,44 @@ $data = mysqli_fetch_array($record);
                                         $availableRow = $appointment_data['date1_patient'];
                                     }
                                     $serial = 1;
-                                   
-                                    for($i = 1; $i <= $noOfRow; $i++){
-                                        if($noOfRow>0){
-                                            while($row=mysqli_fetch_array($allData)){
-                                                $formattedTime = date("h.iA", $starting_time + (($serial - 1) * $time_interval));
-                                                echo '<tr>
-                                                <td scope="col">'. $serial.'</td>
-                                                <td scope="col">'. $row['name'].'</td>
-                                                <td scope="col">'.$formattedTime.'</td>
-                                                <td scope="col"><a class="booked app-btn" href="">Booked</a></td>
-                                                </tr>
-                                                ';
-                                                $serial++;
-                       
+                                    $rows = mysqli_fetch_all($allData, MYSQLI_ASSOC);
+                                   $i=1;
+                                    while($i <= 10){
+                                        
+                                            $formattedTime = date("h.iA", $starting_time + (($i - 1) * $time_interval));
+                                            $trackRow = 0;
+                                
+                                          
+                                            foreach ($rows as $row) {
+                                                if($i == $row['serial_no']){
+                                                    echo '<tr>
+                                                    <td scope="col">'. $i.'</td>
+                                                    <td scope="col">'.$row['name'].'</td>
+                                                    <td scope="col">'. $formattedTime.'</td>
+                                                    <td scope="col"><a class="booked app-btn " href="">Booked</a></td>
+                                                    </tr>';
+                                                    $trackRow =1;
+                                                   
+                                                   
+                                                }
 
-                                            }}
-          
+
+                                            
+                                            }
+                                            if($trackRow == 0){
+                                                echo '<tr>
+                                                <td scope="col">'. $i.'</td>
+                                                <td scope="col">-</td>
+                                                <td scope="col">'. $formattedTime.'</td>
+                                                <td scope="col"><a class="available app-btn " href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1']. '&serial=' . $i.'">available</a></td>
+                                                </tr>';
+                                            }
+
+                                            $i++;
+                                           
+                                        
                                     }
-                                    if($availableRow > 0){
-                                        for($j = 1; $j <= $availableRow; $j++){
-                                            $formattedTime = date("h.iA", $starting_time + (($serial - 1) * $time_interval));
-                                            echo '<tr>
-                                            <td scope="col">'. $serial.'</td>
-                                            <td scope="col">-</td>
-                                            <td scope="col">'.$formattedTime.'</td>
-                                            <td scope="col"><a class="available app-btn" href="appointment-page2.php?doctor_id=' . $id . '&time=' . $formattedTime . '&appointment_date=' . $appointment_data['date1'].'">available</a></td>
-                                            </tr>
-                                            ';
-                                            $serial++;
-                                        }
-                                    }
+
                                      echo '</tbody>
                                      </table>
                                  </div>

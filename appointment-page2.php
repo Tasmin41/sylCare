@@ -118,9 +118,9 @@
                             $doctor_id = $_GET['doctor_id'];
                             $time = $_GET['time'];
                             $appointment_date = $_GET['appointment_date'];
-    
+                            $serial = $_GET['serial'];
                             $name = $_POST['name'];
-                        
+                            echo $time;
                             $email = $_POST['email'];
                             $mobile= $_POST['mobile'];
                             $age = $_POST['age'];
@@ -136,13 +136,13 @@
                               echo "<script>location.href='appointment-page2.php'</script>";
                            }
                           else{
-                           $insertQuery = "INSERT INTO `appointment`(`name`,`email`,`mobile`,`age`,`address`,`status`,`appointment_time`,`appointment_date`,`doctor_id`) VALUES ('$name','$email','$mobile','$age','$adress','pending','$time','$appointment_date','$doctor_id')";
+                           $insertQuery = "INSERT INTO `appointment`(`name`,`email`,`mobile`,`age`,`address`,`status`,`appointment_time`,`appointment_date`,`doctor_id`,`serial_no`) VALUES ('$name','$email','$mobile','$age','$adress','pending','$time','$appointment_date','$doctor_id','$serial')";
                               if(!mysqli_query($conn,$insertQuery)){
                                  die("not inserted");
                            }
                            else{
                               echo "<script>alert('Thanks for filling out form!!')</script>";
-                                 echo "<script>location.href='index.php'</script>";
+                                 echo "<script>location.href='appointment-page2.php'</script>";
                            }
                           }
                         }
