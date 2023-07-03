@@ -88,7 +88,8 @@
                                     <p>$row[r_department]</p>
                                     <p>$row[r_email]</p>
                                     <p>$row[r_mobile]</p>
-                                    <a class='btn btn-primary' href=''>See Appointment </a>
+                                    <a class='btn btn-primary' href='doctorProfileEdit.php?id=$row[id]'>Edit</a>
+                                    <a class='btn btn-primary' href='doctorDelete.php?id=$row[id]'>Delete</a>
                                </div>
                            </div>";     
                            }

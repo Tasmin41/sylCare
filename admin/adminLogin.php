@@ -45,7 +45,7 @@
                       <input type="password" class="form-control" id="exampleInputPassword1" name="l_pass">
                     </div>
                     <button type="submit" class="btn yellow-btn" name ="login">Login</button>
-                    <a href ="adminRegistration.php"class=" btn yellow-btn">Register</a>
+                    <!-- <a href ="adminRegistration.php"class=" btn yellow-btn">Register</a> -->
                   </form>
             </div>
         </div>

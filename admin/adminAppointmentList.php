@@ -1,27 +1,20 @@
-<?php
-session_start();
-include 'config.php';
-$username = $_SESSION['r_username'];
-$result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
-$row=mysqli_fetch_array($result);
 
-if (!isset($_SESSION['r_username'])) {
-    header('Location: adminLogin.php');
-    exit;
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Admin || Home</title>
+      <title>Appointment List</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      /* th{
+      white-space: nowrap;
+      } */
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -71,10 +64,9 @@ if (!isset($_SESSION['r_username'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="adminHome.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-
                         <a href="login.php" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
@@ -83,61 +75,69 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="admin-area bg-light">
+      <div class="login">
          <div class="container">
-            <div class="row">
-               <div class="col-xl-12">
-                  <h2 class="heading">DASHBOARD</h2>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <span class="work" href="#">Welcome!</span>
-                     <p><?php echo $_SESSION['r_username']?>
-                     <span class="designation">Admin</span>
-                    </p>
+            <div class="row d-flex justify-content-center">
+               <h2 class="heading">See All Appointment List</h2>
+               <div class="col-xl-12 mx-auto ">
+                  <table class="table table-hover table-dark" id="myTable">
+                     <thead>
+                        <tr>
+                            <th scope="col">Serial</th>
+                             <th scope="col">Patint Name</th>
+                             <th scope="col">Email</th>
+                             <th scope="col">Age</th>
+                             <th scope="col">Contact</th>
+  
+                             <th scope="col">Address</th>
+                             <th scope="col">Appointment Date</th>
+                             <th scope="col">Appointment Time</th>
+  
+                             <th scope="col">Status</th>
+                             <th scope="col">Edit</th>
+                             <th scope="col">Delete</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <?php
+                           include 'config.php';
+                           
+                            $allData = mysqli_query($conn,"SELECT * FROM `appointment`");
 
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Department</p>
-                     <a class="btn yellow-btn" href="addDepartment.php">Add Department</a>
-                  </div>
-               </div>
-       
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-building"></i></a>
-                     <p>Department</p>
-                     <a class="btn yellow-btn" href="departmentList.php">All Department</a>
-                  </div>
-               </div>
-          
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
-                     <p>Doctor</p>
-                     <a class="btn yellow-btn" href="doctorRegistration.php">Add Doctor</a>
-                  </div>
-               </div>
+                            if(mysqli_num_rows($allData)>0){
+                                $i = 1;
+                                while($row1=mysqli_fetch_array($allData)){
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Doctors</p>
-                     <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
-                  </div>
-               </div>
+                                    $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
+                                    $timeFormatted = $date->format('h.ia');
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Appointment</p>
-                     <a class="btn yellow-btn" href="adminAppointmentList.php">See Appointment</a>
-                  </div>
+                                    echo "<tr>
+                                    <td>$row1[serial_no]</td>                       
+                                    <td>$row1[name]</td>
+                                    <td>$row1[email]</td>
+                                    <td>$row1[age]</td>
+                                    <td>$row1[mobile]</td>
+                                    <td>$row1[address]</td>
+                                    <td>$row1[appointment_date]</td>
+                                    <td> $timeFormatted</td>
+                                    <td>$row1[status]</td>
+    
+                                    <td><a class='btn btn-primary' href='appointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>
+                                    <td><a class='btn btn-primary' href='adminAppointmentDelete.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Delete</a></td>
+                                    </tr>"; 
+                                    $i++;    
+                                }
+                            }
+                            else{
+                                echo "<tr>
+                                    <td colspan='12' class='error-appointment'>No Appointment</td>
+                                </tr>";
+                            }
+
+                           ?>
+                     </tbody>
+                  </table>
+
                </div>
             </div>
          </div>
@@ -207,7 +207,7 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Footer End -->
-      <script src="js/main.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <script src="js/main.js"></script>
    </body>
 </html>

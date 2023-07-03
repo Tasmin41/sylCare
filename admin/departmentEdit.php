@@ -1,27 +1,36 @@
 <?php
 session_start();
 include 'config.php';
-$username = $_SESSION['r_username'];
-$result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
-$row=mysqli_fetch_array($result);
+$id = $_GET['id'];
+
+$dataFetchQuery = "SELECT * FROM `department` WHERE id = '$id'";
+$record = mysqli_query($conn,$dataFetchQuery);
+$data = mysqli_fetch_array($record);
 
 if (!isset($_SESSION['r_username'])) {
-    header('Location: adminLogin.php');
+    header('Location: login.php');
     exit;
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Admin || Home</title>
+      <title>Department Edit </title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -71,10 +80,9 @@ if (!isset($_SESSION['r_username'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="adminHome.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-
                         <a href="login.php" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
@@ -83,62 +91,50 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="admin-area bg-light">
+      <div class="login">
          <div class="container">
-            <div class="row">
-               <div class="col-xl-12">
-                  <h2 class="heading">DASHBOARD</h2>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <span class="work" href="#">Welcome!</span>
-                     <p><?php echo $_SESSION['r_username']?>
-                     <span class="designation">Admin</span>
-                    </p>
+            <div class="row d-flex justify-content-center">
+               <h2 class="heading">Edit Department</h2>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div>
+                    <!--update course php start -->
+                    <?php
+                        if(isset($_POST['submit'])){
+                        $department_name = $_POST['department_name'];
+                        
+                        $updateQuery ="UPDATE department SET `department_name`= '$department_name' WHERE id = '$id'";
+                            
+                        if(mysqli_query($conn,$updateQuery)){
+                
+                            echo "<script>alert('Updated!!! !!')</script>";
+                        }else{
+                            echo "<script>alert('not Updated!!! !!')</script>";
+                        }	
+                    }
+                    ?>
+            <!--update course php end -->
 
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Department</p>
-                     <a class="btn yellow-btn" href="addDepartment.php">Add Department</a>
-                  </div>
-               </div>
-       
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-building"></i></a>
-                     <p>Department</p>
-                     <a class="btn yellow-btn" href="departmentList.php">All Department</a>
-                  </div>
-               </div>
-          
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
-                     <p>Doctor</p>
-                     <a class="btn yellow-btn" href="doctorRegistration.php">Add Doctor</a>
-                  </div>
-               </div>
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Doctors</p>
-                     <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
-                  </div>
-               </div>
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Appointment</p>
-                     <a class="btn yellow-btn" href="adminAppointmentList.php">See Appointment</a>
-                  </div>
+
+
+            <form action="" method="post" class="register">
+               
+               <div class="form-inner">
+                   <div class="row g-3">
+                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                           <div class="input-wrap mb-3"><label for="department_name">Department Name : </label>
+                           <input class="form-control" type="text" value="<?php echo $data['department_name'] ;?>" name="department_name" required>
+                        </div>
+                       </div>
+                   </div>
+
+                   <button class="btn btn-lg yellow-btn" type="submit" name ="submit">Update</button>
+                
                </div>
+           </form>
+                    </div>
+                </div>
             </div>
          </div>
       </div>
@@ -207,7 +203,7 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Footer End -->
-      <script src="js/main.js"></script>
       <script src="js/bootstrap.min.js"></script>
+      <script src="js/main.js"></script>
    </body>
 </html>

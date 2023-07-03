@@ -1,10 +1,6 @@
 <?php
 session_start();
-// include 'config.php';
-// $username = $_SESSION['r_username'];
-// $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$username'");
 
-// $row=mysqli_fetch_array($result);
 if (!isset($_SESSION['r_username'])) {
     header('Location: login.php');
     exit;
