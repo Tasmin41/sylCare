@@ -1,27 +1,37 @@
 <?php
 session_start();
 include 'config.php';
-$username = $_SESSION['r_username'];
-$result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$username'");
-$row=mysqli_fetch_array($result);
+$id = $_GET['id'];
+
+
+$dataFetchQuery = "SELECT * FROM `doctor_registration` WHERE id = '$id'";
+$record = mysqli_query($conn,$dataFetchQuery);
+$data = mysqli_fetch_array($record);
 
 if (!isset($_SESSION['r_username'])) {
-    header('Location: doctorLogin.php');
+    header('Location: login.php');
     exit;
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>home</title>
+      <title>Profile Edit </title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -71,10 +81,9 @@ if (!isset($_SESSION['r_username'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="doctorHome.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-
                         <a href="login.php" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
@@ -83,60 +92,123 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="admin-area bg-light">
+      <div class="login">
          <div class="container">
-            <div class="row">
-               <div class="col-xl-12">
-                  <h2 class="heading">DASHBOARD</h2>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <span class="work" href="#">Welcome!</span>
-                     <p><?php echo $_SESSION['r_username']?>
-                     <span class="designation">Doctor</span>
-                    </p>
+            <div class="row d-flex justify-content-center">
+               <h2 class="heading">Edit Profile</h2>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div>
+                    <!--update course php start -->
+                    <?php
+                                   if(isset($_POST['submit'])){
+                                    $r_username = $_POST['r_username'];
+                                   
+                                    $r_email = $_POST['r_email'];
+                                    $r_mobile = $_POST['r_mobile'];
+                                    $r_department = $_POST['r_department'];
+                                    $post = $_POST['post'];
+                                    $degree = $_POST['degree'];
+                                    $time = $_POST['time'];
+                                  
+                                    $r_pass = $_POST['r_pass'];
 
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-address-card"></i></a>
-                     <p>Profile</p>
-                     <a class="btn yellow-btn" href="doctorProfileEdit.php?id=<?php echo $row['id']?>">Change Profile Info</a>
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Appointment List</p>
-                     <a class="btn yellow-btn" href="appointmentList.php?id=<?php echo $row['id']?> ">See Appointment</a>
-                  </div>
-               </div>
+                                    $mobilePattern = "/(\+88)?-?01[3-9]\d{8}/";
+                    
+                    
+                                    $result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$r_username'");
+                                    
+                                    if(mysqli_num_rows($result)>0){
+                                        echo "<script>alert('Username is already taken.')</script>";
+                                        echo "<script>location.href='doctorProfileEdit.php'</script>";
+                                    }
+                                    else if(strlen($r_username<3 || strlen($r_username) > 20)){
+                                        echo "<script>alert('3-20 char username is allowed')</script>";
+                                        echo "<script>location.href='doctorProfileEdit.php'</script>";
+                                    }
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-regular fa-calendar"></i></a>
-                     <p>Appointment Date List</p>
-                     <a class="btn yellow-btn" href="appointmentDateList.php?id=<?php echo $row['id']?>">Appointment Date</a>
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
-                     <p>Upcomming Appointment Date</p>
-                     <a class="btn yellow-btn" href="setAppointmentDate.php?id=<?php echo $row['id']?>">Set Dates</a>
-                  </div>
-               </div>
+                                    else if(!preg_match($mobilePattern , $r_mobile)){
+                                        echo "<script>alert('**Only BD phone number is allowed!!')</script>";
+                                        echo "<script>location.href='doctorProfileEdit.php'</script>";
+                                    }
+                                    else{
+                                     
+                                        $updateQuery ="UPDATE doctor_registration SET `r_username`= '$r_username', `r_email`= '$r_email', `r_mobile`= '$r_mobile', `r_department`= '$r_department', `post`= '$post', `degree`= '$degree', `time`= '$time', `r_pass`= '$r_pass' WHERE id = '$id'";
+                                        
+                                        if(mysqli_query($conn,$updateQuery)){
+                               
+                                            echo "<script>alert('Updated!!! !!')</script>";
+                                        }else{
+                                            echo "<script>alert('not Updated!!! !!')</script>";
+                                        }	
+                                    }
+                                }
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Doctors</p>
-                     <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
-                  </div>
+                    ?>
+            <!--update course php end -->
+
+
+
+
+
+            <form action="" method="post" class="register">
+               
+               <div class="form-inner">
+                   <div class="row g-3">
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap "><label for="r_username">Enter Your username : </label>
+                           <input class="form-control" type="text" value="<?php echo $data['r_username'] ;?>" name="r_username" required>
+                        </div>
+                       </div>
+
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap "><label for="r_email">Enter Your Email : </label>
+                           <input class="form-control" type="email" value="<?php echo $data['r_email'] ;?>" name="r_email" required>
+                        </div>
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap "><label for="r_mobile">Phone Number : </label>
+                           <input class="form-control"  type="tel" value="<?php echo $data['r_mobile'] ;?>" name="r_mobile" required>
+                        </div>
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           
+                           <div class="input-wrap ">
+                               <label for="address">Your Department: </label>
+                               <input class="form-control" value="<?php echo $data['r_department'] ;?>"  type="text" name="r_department" required>
+                           </div>
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap">
+                            <label for="post">Post : </label>
+                            <input class="form-control" placeholder="Consultant, Anaesthesia" type="text" value="<?php echo $data['post'] ;?>" name="post" required>
+                        </div>
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap"><label for="degree">Degree : </label>
+                           <input class="form-control"  placeholder="MBBS, DA (Anaesthesiology), DNB (T)" type="text" value="<?php echo $data['degree'] ;?>" name="degree" required>
+                        </div>
+                       </div>
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap"><label for="time">Consulting Time : </label>
+                           <input class="form-control" placeholder="Sunday - Tuesday (3PM -6PM)" type="text" value="<?php echo $data['time'] ;?>" name="time" required>
+                        </div>
+                       </div>
+
+                       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                           <div class="input-wrap mb-3"><label for="pass">Password : </label>
+                           <input class="form-control" type="text" value="<?php echo $data['r_pass'] ;?>" name="r_pass" required>
+                        </div>
+                       </div>
+
+
+                   </div>
+
+                   <button class="btn btn-lg yellow-btn" type="submit" name ="submit">Update</button>
+                
                </div>
+           </form>
+                    </div>
+                </div>
             </div>
          </div>
       </div>
@@ -205,6 +277,7 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Footer End -->
+      <script src="js/bootstrap.min.js"></script>
       <script src="js/main.js"></script>
    </body>
 </html>

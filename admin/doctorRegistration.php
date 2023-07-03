@@ -109,12 +109,7 @@
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap"><label for="time">Consulting Time : </label><input class="form-control" placeholder="Sunday - Tuesday (3PM -6PM)" type="text" name="time" required></div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap"><label for="time-hour">Appointment hour : </label><input class="form-control" placeholder="Total Hour per day" type="number" name="time_hour" required></div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap"><label for="time-min">Time Per patient (minute) : </label><input class="form-control" placeholder="15" type="number" name="time_min" required></div>
-                            </div>
+
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                 <div class="input-wrap "><label for="pass">Password : </label><input class="form-control" type="password" name="r_pass" required></div>
                             </div>
