@@ -76,7 +76,7 @@ if (!isset($_SESSION['r_username'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="home.php" class="nav-item nav-link active">Home</a>
+                        <a href="doctorHome.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
                         <a href="login.php" class="nav-item nav-link">Contact</a>
@@ -90,12 +90,21 @@ if (!isset($_SESSION['r_username'])) {
       <div class="login">
          <div class="container">
             <div class="div ">
-               <h2 class="heading">See All Appointment List</h2>
+                <?php 
+                  include 'config.php';
+                  $id = $_GET['id'];
+
+                $doctor = "SELECT * FROM `doctor_registration` WHERE id = '$id '";
+                $doctor_record = mysqli_query($conn,$doctor);
+                $doctor_data = mysqli_fetch_array($doctor_record);
+                ?>
+           
+               <h2 class="heading"><?php echo 'Dr.' . $doctor_data['r_username'] . ' All Appointment List'?></h2>
                <div class="row justify-content-center">
 
                 <?php
-                 include 'config.php';
-                 $id = $_GET['id'];
+                //  include 'config.php';
+             
                 
                  $appointment = "SELECT * FROM `appointment_date` WHERE doctor_id = '$id'";
                  $appointment_record = mysqli_query($conn,$appointment);
@@ -109,7 +118,7 @@ if (!isset($_SESSION['r_username'])) {
 
                     echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
                     <div class="_single_app">
-                        <h4> '.$appointment_data['date1'].'</h4>
+                        <h4> Day - 1 : '.$appointment_data['date1'].'</h4>
                         <table class="table table-hover table-dark" id="myTable">
                      <thead>
                         <tr>
@@ -121,7 +130,7 @@ if (!isset($_SESSION['r_username'])) {
 
                            <th scope="col">Address</th>
                            <th scope="col">Time</th>
-
+                           <th scope="col">Status</th>
 
                            <th scope="col">Edit</th>
                            <th scope="col">Delete</th>
@@ -134,8 +143,9 @@ if (!isset($_SESSION['r_username'])) {
                      if(mysqli_num_rows($appData)>0){
                         $i = 1;
                         while($row1=mysqli_fetch_array($appData)){
-                            
-                            $starting_time = strtotime($row1['appointment_time']);
+                       
+                            $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
+                            $timeFormatted = $date->format('h.ia');
                             echo "<tr>
                                 <td>$row1[serial_no]</td>                       
                                 <td>$row1[name]</td>
@@ -143,11 +153,11 @@ if (!isset($_SESSION['r_username'])) {
                                 <td>$row1[age]</td>
                                 <td>$row1[mobile]</td>
                                 <td>$row1[address]</td>
-                                <td> $row1[appointment_time]</td>
+                                <td> $timeFormatted</td>
+                                <td>$row1[status]</td>
 
-
-                                <td><a class='btn btn-primary' href=''>Edit</a></td>
-                                <td><a class='btn btn-primary' href=''>Delete</a></td>
+                                <td><a class='btn btn-primary' href='appointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>
+                                <td><a class='btn btn-primary' href='appointmentDelete.php?id=$row1[id]&doctor_id= $row1[doctor_id] '>Delete</a></td>
                             </tr>"; 
                             $i++;    
                         }
@@ -168,7 +178,7 @@ if (!isset($_SESSION['r_username'])) {
                       //day2 starts
                       echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
                       <div class="_single_app">
-                          <h4> '.$appointment_data['date2'].'</h4>
+                          <h4> Day - 2 : '.$appointment_data['date2'].'</h4>
                           <table class="table table-hover table-dark" id="myTable">
                        <thead>
                           <tr>
@@ -180,7 +190,7 @@ if (!isset($_SESSION['r_username'])) {
   
                              <th scope="col">Address</th>
                              <th scope="col">Time</th>
-  
+                             <th scope="col">Status</th>
   
                              <th scope="col">Edit</th>
                              <th scope="col">Delete</th>
@@ -194,7 +204,8 @@ if (!isset($_SESSION['r_username'])) {
                           $i = 1;
                           while($row1=mysqli_fetch_array($appData)){
                               
-                              $starting_time = strtotime($row1['appointment_time']);
+                            $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
+                            $timeFormatted = $date->format('h.ia');
                               echo "<tr>
                                   <td>$row1[serial_no]</td>                       
                                   <td>$row1[name]</td>
@@ -202,11 +213,11 @@ if (!isset($_SESSION['r_username'])) {
                                   <td>$row1[age]</td>
                                   <td>$row1[mobile]</td>
                                   <td>$row1[address]</td>
-                                  <td> $row1[appointment_time]</td>
+                                  <td> $timeFormatted</td>
+                                  <td>$row1[status]</td>
   
-  
-                                  <td><a class='btn btn-primary' href=''>Edit</a></td>
-                                  <td><a class='btn btn-primary' href=''>Delete</a></td>
+                                  <td><a class='btn btn-primary' href='appointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>
+                                  <td><a class='btn btn-primary' href='appointmentDelete.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Delete</a></td>
                               </tr>"; 
                               $i++;    
                           }
@@ -226,7 +237,7 @@ if (!isset($_SESSION['r_username'])) {
                       //day3 starts
                       echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
                       <div class="_single_app">
-                          <h4> '.$appointment_data['date3'].'</h4>
+                          <h4>Day - 3 : '.$appointment_data['date3'].'</h4>
                           <table class="table table-hover table-dark" id="myTable">
                        <thead>
                           <tr>
@@ -239,7 +250,7 @@ if (!isset($_SESSION['r_username'])) {
                              <th scope="col">Address</th>
                              <th scope="col">Time</th>
   
-  
+                             <th scope="col">Status</th>
                              <th scope="col">Edit</th>
                              <th scope="col">Delete</th>
                           </tr>
@@ -252,7 +263,8 @@ if (!isset($_SESSION['r_username'])) {
                           $i = 1;
                           while($row1=mysqli_fetch_array($appData)){
                               
-                              $starting_time = strtotime($row1['appointment_time']);
+                            $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
+                            $timeFormatted = $date->format('h.ia');
                               echo "<tr>
                                   <td>$row1[serial_no]</td>                       
                                   <td>$row1[name]</td>
@@ -260,11 +272,11 @@ if (!isset($_SESSION['r_username'])) {
                                   <td>$row1[age]</td>
                                   <td>$row1[mobile]</td>
                                   <td>$row1[address]</td>
-                                  <td> $row1[appointment_time]</td>
+                                  <td> $timeFormatted</td>
+                                  <td>$row1[status]</td>
   
-  
-                                  <td><a class='btn btn-primary' href=''>Edit</a></td>
-                                  <td><a class='btn btn-primary' href=''>Delete</a></td>
+                                  <td><a class='btn btn-primary' href='appointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>
+                                  <td><a class='btn btn-primary' href='appointmentDelete.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Delete</a></td>
                               </tr>"; 
                               $i++;    
                           }
@@ -282,7 +294,65 @@ if (!isset($_SESSION['r_username'])) {
                             </div>
                         </div>';
 
-
+                      //Requested Appointment
+                      echo '<div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                      <div class="_single_app">
+                          <h4>Requested Appointment </h4>
+                          <table class="table table-hover table-dark" id="myTable">
+                       <thead>
+                          <tr>
+                             <th scope="col">Serial</th>
+                             <th scope="col">Patint Name</th>
+                             <th scope="col">Email</th>
+                             <th scope="col">Age</th>
+                             <th scope="col">Contact</th>
+  
+                             <th scope="col">Address</th>
+                             <th scope="col">Time</th>
+                             <th scope="col">Status</th>
+  
+                             <th scope="col">Edit</th>
+                             <th scope="col">Delete</th>
+                          </tr>
+                       </thead>
+                       <tbody>';
+                       
+                       $appData = mysqli_query($conn,"SELECT * FROM `appointment` WHERE doctor_id='$id' And status='requested'");
+  
+                       if(mysqli_num_rows($appData)>0){
+                          $i = 1;
+                          while($row1=mysqli_fetch_array($appData)){
+                              
+                            $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
+                            $timeFormatted = $date->format('h.ia');
+                              echo "<tr>
+                                  <td>-</td>                       
+                                  <td>$row1[name]</td>
+                                  <td>$row1[email]</td>
+                                  <td>$row1[age]</td>
+                                  <td>$row1[mobile]</td>
+                                  <td>$row1[address]</td>
+                                  <td> - </td>
+                                  <td>$row1[status]</td>
+  
+                                  <td><a class='btn btn-primary' href='reqAppointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>
+                                  <td><a class='btn btn-primary' href='appointmentDelete.php?id=$row1[id]'>Delete</a></td>
+                              </tr>"; 
+                              $i++;    
+                          }
+                      }
+                      else{
+                          echo "<tr>
+                              <td colspan='12' class='error-appointment'>No appointment</td>
+                          </tr>";
+                      }
+  
+                             
+  
+                          echo ' </tbody>
+                          </table>
+                            </div>
+                        </div>';
                  }
 
                 ?>

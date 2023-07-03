@@ -20,7 +20,7 @@
       echo "<script>location.href='appointment-page.php'</script>";
    }
   else{
-   $insertQuery = "INSERT INTO `appointment`(`doctor`, `name`,`email`,`mobile`,`age`,`address`,`status`) VALUES ('$doctor','$name','$email','$mobile','$age','$adress','pending')";
+   $insertQuery = "INSERT INTO `appointment`(`doctor_id`, `name`,`email`,`mobile`,`age`,`address`,`status`) VALUES ('$doctor','$name','$email','$mobile','$age','$adress','requested')";
       if(!mysqli_query($conn,$insertQuery)){
          die("not inserted");
    }

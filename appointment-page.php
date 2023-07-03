@@ -122,7 +122,7 @@
                                                 $allData = mysqli_query($conn,"SELECT * FROM `doctor_registration`");
                                                
                                                 while($row=mysqli_fetch_array($allData)){
-                                                    echo "<option value=$row[r_username]>$row[r_username]</option>";     
+                                                    echo "<option value=$row[id]>$row[r_username]</option>";     
                                                 }
                                                 ?>
 
@@ -143,6 +143,7 @@
                                 <div class="col-12 col-sm-6">
                                     <input type="text" name="address" class="form-control bg-light border-0" placeholder="Your Address" style="height: 55px;">
                                 </div>
+
                                 <div class="col-12">
                                     <button name="submit" class="btn yellow-btn w-100 py-3" type="submit">Make An Appointment</button>
                                 </div>

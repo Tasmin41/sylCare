@@ -183,6 +183,7 @@ $data = mysqli_fetch_array($record);
                                     $availableRow;
                                    
                                     $starting_time = strtotime($appointment_data['date1_time']);
+                              
                                     $time_interval = $appointment_data['date1_time_patient'] * 60; // 15 minutes in seconds
                                     if($noOfRow > 0){
                                         $availableRow = $appointment_data['date1_patient'] - $noOfRow;
@@ -203,8 +204,10 @@ $data = mysqli_fetch_array($record);
                                                 if($i == $row['serial_no']){
                                                     echo '<tr>
                                                     <td scope="col">'. $i.'</td>
-                                                    <td scope="col">'.$row['name'].'</td>
-                                                    <td scope="col">'. $formattedTime.'</td>
+                                                    <td scope="col">'.$row['name'].'</td>';
+                                                    $date = DateTime::createFromFormat('H:i:s', $row['appointment_time']);
+                                                    $timeFormatted = $date->format('h.ia');
+                                                    echo '<td scope="col">'. $timeFormatted.'</td>
                                                     <td scope="col"><a class="booked app-btn " href="">Booked</a></td>
                                                     </tr>';
                                                     $trackRow =1;

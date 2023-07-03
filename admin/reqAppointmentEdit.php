@@ -1,27 +1,36 @@
 <?php
 session_start();
 include 'config.php';
-$username = $_SESSION['r_username'];
-$result = mysqli_query($conn ,"SELECT * FROM `doctor_registration` WHERE r_username='$username'");
-$row=mysqli_fetch_array($result);
+$id = $_GET['id'];
 
+
+$dataFetchQuery = "SELECT * FROM `appointment` WHERE id = '$id'";
+$record = mysqli_query($conn,$dataFetchQuery);
+$data = mysqli_fetch_array($record);
 if (!isset($_SESSION['r_username'])) {
-    header('Location: doctorLogin.php');
+    header('Location: login.php');
     exit;
 }
 
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>home</title>
+      <title>Appointment Edit </title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -71,10 +80,9 @@ if (!isset($_SESSION['r_username'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="home.php" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">About</a>
                         <a href="service.html" class="nav-item nav-link">Service</a>
-
                         <a href="login.php" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
@@ -83,59 +91,61 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Navbar End -->
-      <div class="admin-area bg-light">
+      <div class="login">
          <div class="container">
-            <div class="row">
-               <div class="col-xl-12">
-                  <h2 class="heading">DASHBOARD</h2>
-               </div>
-            </div>
-            <div class="row">
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <span class="work" href="#">Welcome!</span>
-                     <p><?php echo $_SESSION['r_username']?>
-                     <span class="designation">Doctor</span>
-                    </p>
+            <div class="row d-flex justify-content-center">
+               <h2 class="heading">Edit appointment status</h2>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div>
+                    <!--update course php start -->
+                    <?php
+                   
+                        if(isset($_POST['submit'])){
+                            $doctor_id=$_POST['doctor_id'];
+                            
+                            $appointment_date=$_POST['appointment_date'];
+                            
+                            $serial_no=$_POST['serial_no'];
+                            $appointment_time=$_POST['appointment_time'];
+                            $status=$_POST['status'];
+                            $p_name=$_POST['name'];
 
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Appointment List</p>
-                     <a class="btn yellow-btn" href="appointmentList.php?id=<?php echo $row['id']?> ">See Appointment</a>
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Profile</p>
-                     <a class="btn yellow-btn" href="doctorProfileEdit.php?id=<?php echo $row['id']?>">Change Profile Info</a>
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-clipboard-list"></i></a>
-                     <p>Appointment Date List</p>
-                     <a class="btn yellow-btn" href="appointmentDateList.php?id=<?php echo $row['id']?>">Appointment Date</a>
-                  </div>
-               </div>
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-message"></i></a>
-                     <p>Upcomming Appointment Date</p>
-                     <a class="btn yellow-btn" href="setAppointmentDate.php?id=<?php echo $row['id']?>">Set Dates</a>
-                  </div>
-               </div>
+                            $updateQuery ="UPDATE appointment SET `appointment_time`= '$appointment_time', `status`= '$status', `serial_no`= '$serial_no', `appointment_date`= '$appointment_date', `name`= '$p_name' WHERE id = '$id'";
+                            if(mysqli_query($conn,$updateQuery)){
+                               
+                                echo "<script>location.href='appointmentList.php?id=$doctor_id'</script>";
+                            }else{
+                                echo "<script>alert('not Updated!!! !!')</script>";
+                            }	 
+                        }
+                    ?>
+            <!--update course php end -->
 
-               <div class="col-xl-3">
-                  <div class="single-work">
-                     <a class="work" href="#"><i class="fa-solid fa-user-astronaut"></i></a>
-                     <p>Doctors</p>
-                     <a class="btn yellow-btn" href="doctorsList.php">See Doctors</a>
-                  </div>
-               </div>
+                    <form action="" method="post" enctype="multipart/form-data" class="appointment-form">
+                        <div class="mb-3 input">
+                            <label>Patient Name:</label><input type="text" value="<?php echo $data['name'] ;?>" name="name" />
+                        </div>
+                        <div class="mb-3 input">
+                            <label>Serial No:</label><input type="number" value="<?php echo $data['serial_no'] ;?>" name="serial_no" />
+                        </div>
+                        <div class="mb-3 input">
+                            <label>Status:</label><input type="text" value="<?php echo $data['status'] ;?>" name="status" />
+                        </div>
+                        <div class="mb-3 input">
+                            <label>Appointment Date:</label><input type="date" value="<?php echo $data['appointment_date'] ;?>" name="appointment_date" />
+                        </div>
+
+                        <div class="mb-3 input">
+                            <label>Appointment Time:</label><input type="time" value="<?php echo $data['appointment_time'] ;?>" name="appointment_time" />
+                        </div>
+                        <input type="hidden" name='doctor_id' value="<?php echo $data['doctor_id'] ?>">
+                       
+                        <div class="mb-3 ">
+                        <input type="submit" name="submit" Value="update" class="btn btn-primary"/>
+                        </div>  
+                    </form>
+                    </div>
+                </div>
             </div>
          </div>
       </div>
@@ -204,6 +214,7 @@ if (!isset($_SESSION['r_username'])) {
         </div>
     </div>
     <!-- Footer End -->
+      <script src="js/bootstrap.min.js"></script>
       <script src="js/main.js"></script>
    </body>
 </html>
