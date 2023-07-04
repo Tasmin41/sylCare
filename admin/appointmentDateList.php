@@ -76,10 +76,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="home.php" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="login.php" class="nav-item nav-link">Contact</a>
+                        <a href="doctorHome.php" class="nav-item nav-link active">Home</a>
+                        <a href="#0" class="nav-item nav-link">About</a>
+                        <a href="#0" class="nav-item nav-link">Service</a>
+                        <a href="#0" class="nav-item nav-link">Contact</a>
                         <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
@@ -110,9 +110,9 @@
                            <th scope="col">No of patient(Date3)</th>
                            <th scope="col">Time per patient(Date3)</th>
                            <th scope="col">Starting time(Date3)</th>
-
-                           <th scope="col">Delete</th>
                            <th scope="col">Edit</th>
+                           <th scope="col">Delete</th>
+                         
                         </tr>
                      </thead>
                      <tbody>
@@ -155,7 +155,7 @@
                             }
                             else{
                                 echo "<tr>
-                                    <td colspan='12' class='error-appointment'>No appointment</td>
+                                    <td colspan='15' class='error-appointment'>No appointment</td>
                                 </tr>";
                             }
 

@@ -5,7 +5,7 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>All appointmentList</title>
+      <title>Appointment Details</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
@@ -92,9 +92,13 @@
 
 
                             if(mysqli_num_rows($result)>0){
-
-                                echo "<script>alert('your appointment date: $rowInfo[appointment_date] , time :  $rowInfo[appointment_time] and serial is : $rowInfo[serial_no]!!')</script>";
-                
+                                if($rowInfo['serial_no'] == '0'){
+                                    echo "<script>alert('please wait for response.')</script>";
+                                }
+                                else{
+                                    echo "<script>alert('your appointment date: $rowInfo[appointment_date] , time :  $rowInfo[appointment_time] and serial is : $rowInfo[serial_no]!!')</script>";
+                                }
+                                
                             }
                             else{
                                 echo "<script>alert('Not Found ! Please take appointement')</script>";

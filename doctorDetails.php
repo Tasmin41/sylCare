@@ -140,8 +140,7 @@ $data = mysqli_fetch_array($record);
                         <h4><?php echo $data['post'];?></h4>
                         <h4><?php echo $data['degree'];?></h4>
                         <h4><?php echo $data['time'];?></h4>
-                        <h2 class="doctor-experi">Professional Experience</h2>
-                        <p><?php echo $data['desc'];?></p>
+
                     </div>
                 </div>
             </div>

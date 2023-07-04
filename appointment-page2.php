@@ -144,6 +144,7 @@
                                  die("not inserted");
                            }
                            else{
+                               echo "<script>alert('Thanks for filling out form!!')</script>";
                             echo "<script>location.href='doctorDetails?id='$doctor_id''</script>";
                             //   echo "<script>alert('Thanks for filling out form!!')</script>";
                                 
@@ -156,19 +157,19 @@
                             <div class="row g-3">
 
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" name="name" class="form-control bg-light border-0" placeholder="Your Name" required style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" name="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" name="email" class="form-control bg-light border-0" placeholder="Your Email" required style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="tel" name="mobile" class="form-control bg-light border-0" placeholder="Phone Number" style="height: 55px;">
+                                    <input type="tel" name="mobile" class="form-control bg-light border-0" placeholder="Phone Number" required style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" name="age" class="form-control bg-light border-0" placeholder="Your Age" style="height: 55px;">
+                                    <input type="text" name="age" class="form-control bg-light border-0" placeholder="Your Age" required style="height: 55px;">
                                 </div>
                                 <div class="col-12 col-sm-12">
-                                    <input type="text" name="address" class="form-control bg-light border-0" placeholder="Your Address" style="height: 55px;">
+                                    <input type="text" name="address" class="form-control bg-light border-0" placeholder="Your Address" required style="height: 55px;">
                                 </div>
                                 <div class="col-12">
                                     <button name="submit" class="btn yellow-btn w-100 py-3" type="submit">Make An Appointment</button>

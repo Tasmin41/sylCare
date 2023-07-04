@@ -23,11 +23,10 @@
                     $post = $_POST['post'];
                     $degree = $_POST['degree'];
                     $time = $_POST['time'];
-                    $desc = $_POST['desc'];
+                 
                     $r_pass = $_POST['r_pass'];
                     $r_cpass = $_POST['r_cpass'];
-                    $time_min = $_POST['time_min'];
-                    $time_hour = $_POST['time_hour'];
+
                     $mobilePattern = "/(\+88)?-?01[3-9]\d{8}/";
     
     
@@ -46,15 +45,20 @@
                         echo "<script>alert('Pass and confirm pass is not matching')</script>";
                         echo "<script>location.href='doctorRegistration.php'</script>";
                     }
+                    else if($r_department === 'Choose Department'){
+                        echo "<script>alert('Choose a department!')</script>";
+                        echo "<script>location.href='doctorRegistration.php'</script>";
+                    }
                     else if(!preg_match($mobilePattern , $r_mobile)){
                         echo "<script>alert('**Only BD phone number is allowed!!')</script>";
                         echo "<script>location.href='doctorRegistration.php'</script>";
                     }
                     else{
-                        echo "hello";
-                        $insert_query = "INSERT INTO `doctor_registration`(`r_username`,`image`,`r_email`,`r_mobile`,`r_department`,`post`,`degree`,`time`,`desc`,`time_min`,`time_hour`,`r_pass`) VALUES ('$r_username','$image','$r_email','$r_mobile','$r_department','$post','$degree','$time','$desc','$time_min','$time_hour','$r_pass')";
-                        echo "hello from 56";
+                       
+                        $insert_query = "INSERT INTO `doctor_registration`(`r_username`,`image`,`r_email`,`r_mobile`,`r_department`,`post`,`degree`,`time`,`r_pass`) VALUES ('$r_username','$image','$r_email','$r_mobile','$r_department','$post','$degree','$time','$r_pass')";
+                        
                         if(!mysqli_query($conn,$insert_query)){
+                            echo $desc;
                             echo("Error description: " . mysqli_error($conn));
                         }
                         else{
@@ -114,11 +118,11 @@
                                 <div class="input-wrap "><label for="pass">Password : </label><input class="form-control" type="password" name="r_pass" required></div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                <div class="input-wrap"><label for="cpass">Confirm Password: </label><input class="form-control" type="password" name="r_cpass" required></div>
+                                <div class="input-wrap mb-3"><label for="cpass">Confirm Password: </label><input class="form-control" type="password" name="r_cpass" required></div>
                             </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="input-wrap mb-3"><label for="desc">Description/Experience: </label><textarea class="form-control"  name="desc" id="" cols="30" rows="10"></textarea></div>
-                            </div>
+                            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="input-wrap mb-3"><label for="desc">Description/Experience: </label><textarea class="form-control"  name="desc" id="" cols="30" rows="10" required></textarea></div>
+                            </div> -->
                         </div>
 
                         <button class="btn btn-lg yellow-btn" type="submit" name ="submit">Register</button>

@@ -80,9 +80,9 @@
          <div class="container">
             <div class="row d-flex justify-content-center">
                <h2 class="heading text-center mt-5 mb-5">Find Doctor 
-                departmentwisw ..
+                department wise ..
                </h2>
-               <div class="row align-items-center mb-3 ">
+               <div class="row align-items-center mb-100 ">
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                         <div>
                             <img src="img/banner-img.jpg" alt="" class="department-banner-img">

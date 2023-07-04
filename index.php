@@ -110,7 +110,7 @@
                     <h5 class="d-inline-block yellow-txt text-uppercase border-bottom border-5" style="border-color: rgba(256, 256, 256, .3) !important;">Welcome To SylCare</h5>
                     <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
                     <div class="pt-2">
-                        <a href="#doctor_find" class="btn yellow-btn rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
+                        <a href="allDoctors.php" class="btn yellow-btn rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
                         <a href="appointment-page.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
                     </div>
                 </div>
@@ -139,7 +139,7 @@
                         <h5 class="d-inline-block blue-txt text-uppercase border-bottom border-5">About Us</h5>
                         <h1 class="display-4">Best Medical Care For Yourself and Your Family</h1>
                     </div>
-                    <p>Tempor erat elitr at rebum at at clita aliquyam consetetur. Diam dolor diam ipsum et, tempor voluptua sit consetetur sit. Aliquyam diam amet diam et eos sadipscing labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita duo justo et tempor consetetur takimata eirmod, dolores takimata consetetur invidunt magna dolores aliquyam dolores dolore. Amet erat amet et magna</p>
+                    <p>At Sylcare Hospital, we are dedicated to providing exceptional healthcare services with a patient-centered approach. Our state-of-the-art facility is equipped with the latest medical technology and staffed by a team of highly skilled professionals who are committed to delivering compassionate and personalized care to our patients.</p>
                     <div class="row g-3 pt-3">
                         <div class="col-sm-3 col-6">
                             <div class="bg-light text-center rounded-circle py-4">
@@ -186,7 +186,7 @@
                             <i class="fa fa-2x fa-user-md text-white"></i>
                         </div>
                         <h4 class="mb-3">Emergency Care</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit</p>
+                        <p class="m-0">Our Emergency Department operates around the clock to address medical emergencies promptly.</p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -198,7 +198,7 @@
                             <i class="fa fa-2x fa-procedures text-white"></i>
                         </div>
                         <h4 class="mb-3">Operation & Surgery</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit</p>
+                        <p class="m-0">We offer a comprehensive range of surgical services to address a wide variety of medical conditions.</p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -210,7 +210,7 @@
                             <i class="fa fa-2x fa-stethoscope text-white"></i>
                         </div>
                         <h4 class="mb-3">Outdoor Checkup</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit</p>
+                        <p class="m-0">At Sylcare Hospital, we understand that not all medical conditions require an indoor hospital stay. </p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -222,7 +222,7 @@
                             <i class="fa fa-2x fa-ambulance text-white"></i>
                         </div>
                         <h4 class="mb-3">Ambulance Service</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit</p>
+                        <p class="m-0">We have specialized clinics that cater to specific medical specialties. </p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -234,7 +234,7 @@
                             <i class="fa fa-2x fa-pills text-white"></i>
                         </div>
                         <h4 class="mb-3">Medicine & Pharmacy</h4>
-                        <p class="m-0">Kasd dolor no lorem nonumy sit labore tempor at justo rebum rebum stet, justo elitr dolor amet sit</p>
+                        <p class="m-0">Many minor procedures and treatments can be performed on an outpatient basis.</p>
                         <a class="btn btn-lg btn-primary rounded-pill" href="">
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -265,6 +265,7 @@
                 <h1 class="display-4">Qualified Healthcare Professionals</h1>
             </div>
             <div class="owl-carousel team-carousel position-relative">
+                
                 <div class="team-item">
                     <div class="row g-0 bg-light rounded overflow-hidden">
                         <div class="col-12 col-sm-5 h-100">
