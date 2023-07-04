@@ -1,25 +1,4 @@
-<?php
-session_start();
 
-if (!isset($_SESSION['r_username'])) {
-    header('Location: login.php');
-    exit;
-}
-// else{
-//     include 'config.php';
-//     $username = $_SESSION['r_username'];
-//     echo $username;
-// // Check if the session variable is not set
-// $result = mysqli_query($conn ,"SELECT * FROM `admin_registration` WHERE r_username='$username'");
-// $row=mysqli_fetch_array($result);
-// echo $row['r_email'];
-// }
-
-
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -88,7 +67,7 @@ if (!isset($_SESSION['r_username'])) {
                     <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
-                        <a href="doctors.php" class="nav-item nav-link">Doctors</a>
+                        <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
@@ -99,7 +78,7 @@ if (!isset($_SESSION['r_username'])) {
       <div class="login">
          <div class="container">
             <div class="row d-flex justify-content-center">
-               <h2 class="heading text-center mt-5 mb-3">Your Appointment Time</h2>
+               <h2 class="heading text-center mt-5 mb-5">Your Appointment Time</h2>
                <div class="col-xl-6 ">
                <?php
                     include 'config.php';
@@ -113,13 +92,8 @@ if (!isset($_SESSION['r_username'])) {
 
 
                             if(mysqli_num_rows($result)>0){
-                                if($rowInfo['appointment_time'] == null){
-                                    echo "<script>alert('Please wait for response!')</script>";
-                                }
-                                else{
-    
-                                    echo "<script>alert('your appointment time is : $rowInfo[appointment_time]!!')</script>";
-                                }
+
+                                echo "<script>alert('your appointment date: $rowInfo[appointment_date] , time :  $rowInfo[appointment_time] and serial is : $rowInfo[serial_no]!!')</script>";
                 
                             }
                             else{

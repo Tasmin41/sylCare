@@ -94,9 +94,9 @@ $data = mysqli_fetch_array($record);
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                         <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="about.php" class="nav-item nav-link">About</a>
+                        <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
-                        <a href="doctors.php" class="nav-item nav-link">Doctors</a>
+                        <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
 
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>

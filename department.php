@@ -1,21 +1,20 @@
-<?php
-    $departmentName = $_GET['department_name'];
 
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Department Doctor</title>
+      <title>Department</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -75,57 +74,53 @@
             </nav>
         </div>
     </div>
+
     <!-- Navbar End -->
       <div class="login">
          <div class="container">
             <div class="row d-flex justify-content-center">
-            <h2 class="heading text-center mt-5 mb-5"> <?php echo $departmentName ?> department doctors lists</h2>
-
-            <div class="doctors_div">
-
-                <?php
-                include 'config.php';
-             
+               <h2 class="heading text-center mt-5 mb-5">Find Doctor 
+                departmentwisw ..
+               </h2>
+               <div class="row align-items-center mb-3 ">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div>
+                            <img src="img/banner-img.jpg" alt="" class="department-banner-img">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="all-department">
+                                <div class="doctors_nav">
+                                    <ul class="doctors_list">
+                                    <?php
+                                        include 'config.php';
                 
+                                        $departments = mysqli_query($conn, "SELECT * FROM department");
 
-                        $doctors = mysqli_query($conn,"SELECT * FROM `doctor_registration` WHERE r_department='$departmentName' " );
-                        echo' <div class="row mb-100"> ';
-                        if (mysqli_num_rows($doctors) > 0) {
-                            while ($d_data = mysqli_fetch_assoc($doctors)) {
-                                echo '<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                <div class="doctor">
-                                    <div class="doctor-img-div">
-                                        <img src="img/' .$d_data['image'] . '" alt="doctor1" class="doctor-img">
-                                    </div>
-                                    <div class="doctor-content">
-                                        <h4 class="doctor_title">Dr. ' .$d_data['r_username'] . '</h4>
-                                        <h5 class="doctor_sub_title">' .$d_data['post'] . '</h5>
-                                        <a class="doctor_btn btn yellow-btn rounded-pill" href="doctorDetails.php?id='.$d_data['id'].'">View Details</a>
-                                    </div>
+                                        while ($row = mysqli_fetch_assoc($departments)) {
+
+                                            echo  '<li class="doctor_item">
+                                            <a href="doctors.php?department_name='.$row['department_name'].'" class="doctor_link"> ' . $row['department_name'] .' </a>
+                                            <i class="fa-solid fa-arrow-right"></i>
+                                            </li>' ;
+                                        }
+
+                                        ?>
+                                    
+                                    </ul>
                                 </div>
-                            </div>';
-                            }
-                        }
-                        else{
-                            echo '<h2>No doctor in this department</h2>';
-                        }
-                        echo '</div>';
-                       
+                            </div>
+                    </div>
+               </div>
+ 
 
-
-                 ?>
-
-            </div>
-            </div>
             </div>
          </div>
       </div>
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light py-5">
         <div class="container py-5">
             <div class="row g-5">
-               
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block yellow-txt text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                     <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>

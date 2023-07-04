@@ -1,17 +1,11 @@
-<?php
-    $departmentName = $_GET['department_name'];
 
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Department Doctor</title>
+      <title>All appointmentList</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
       <link rel="stylesheet" href="css/style.css">
@@ -66,9 +60,9 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                     <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="department.php" class="nav-item nav-link">Department</a>
+                        <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
-                        <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
+                        <a href="doctors.php" class="nav-item nav-link">Doctors</a>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
@@ -79,7 +73,7 @@
       <div class="login">
          <div class="container">
             <div class="row d-flex justify-content-center">
-            <h2 class="heading text-center mt-5 mb-5"> <?php echo $departmentName ?> department doctors lists</h2>
+            <h2 class="heading text-center mt-5 mb-5"> Doctors lists</h2>
 
             <div class="doctors_div">
 
@@ -88,7 +82,7 @@
              
                 
 
-                        $doctors = mysqli_query($conn,"SELECT * FROM `doctor_registration` WHERE r_department='$departmentName' " );
+                        $doctors = mysqli_query($conn,"SELECT * FROM `doctor_registration`" );
                         echo' <div class="row mb-100"> ';
                         if (mysqli_num_rows($doctors) > 0) {
                             while ($d_data = mysqli_fetch_assoc($doctors)) {
@@ -99,7 +93,9 @@
                                     </div>
                                     <div class="doctor-content">
                                         <h4 class="doctor_title">Dr. ' .$d_data['r_username'] . '</h4>
+                                        
                                         <h5 class="doctor_sub_title">' .$d_data['post'] . '</h5>
+                                        <h5 class="doctor_sub_title">' .$d_data['r_department'] . '</h5>
                                         <a class="doctor_btn btn yellow-btn rounded-pill" href="doctorDetails.php?id='.$d_data['id'].'">View Details</a>
                                     </div>
                                 </div>

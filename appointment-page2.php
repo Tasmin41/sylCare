@@ -82,7 +82,7 @@
                         <a href="index.php" class="nav-item nav-link active">Home</a>
                         <a href="about.php" class="nav-item nav-link">About</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
-                        <a href="doctors.php" class="nav-item nav-link">Doctors</a>
+                        <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
 
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
