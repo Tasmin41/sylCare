@@ -8,6 +8,9 @@
       <title>Department</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
+          <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
       <link rel="stylesheet" href="css/style.css">
    </head>
    <style>
@@ -68,6 +71,7 @@
                         <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
+                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>
@@ -101,7 +105,7 @@
 
                                             echo  '<li class="doctor_item">
                                             <a href="doctors.php?department_name='.$row['department_name'].'" class="doctor_link"> ' . $row['department_name'] .' </a>
-                                            <i class="fa-solid fa-arrow-right"></i>
+                                         
                                             </li>' ;
                                         }
 

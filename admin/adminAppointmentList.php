@@ -92,7 +92,7 @@
                              <th scope="col">Address</th>
                              <th scope="col">Appointment Date</th>
                              <th scope="col">Appointment Time</th>
-  
+                             <th scope="col">Doctor Name</th>
                              <th scope="col">Status</th>
                              <th scope="col">Edit</th>
                              <th scope="col">Delete</th>
@@ -111,6 +111,18 @@
                                     $date = DateTime::createFromFormat('H:i:s', $row1['appointment_time']);
                                     $timeFormatted = $date->format('h.ia');
 
+                                    $dataFetchQuery = "SELECT * FROM `doctor_registration` WHERE id = '$row1[doctor_id]'";
+                                    $record = mysqli_query($conn,$dataFetchQuery);
+                                    $data = mysqli_fetch_array($record);
+
+                                    if($data['r_username'] == null){
+                                        $doctor_name = '-';
+
+                                    }
+                                    else{
+                                        $doctor_name = $data['r_username'];
+                                    }
+
                                     echo "<tr>
                                     <td>$row1[serial_no]</td>                       
                                     <td>$row1[name]</td>
@@ -120,6 +132,7 @@
                                     <td>$row1[address]</td>
                                     <td>$row1[appointment_date]</td>
                                     <td> $timeFormatted</td>
+                                    <td>Dr . $doctor_name</td>
                                     <td>$row1[status]</td>
     
                                     <td><a class='btn btn-primary' href='appointmentEdit.php?id=$row1[id]&doctor_id= $row1[doctor_id]'>Edit</a></td>

@@ -97,7 +97,7 @@ $data = mysqli_fetch_array($record);
                         <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
-
+                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
                     </div>
                 </div>

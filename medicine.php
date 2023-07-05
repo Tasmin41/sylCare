@@ -5,14 +5,16 @@
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>All doctors list</title>
+      <title>Medicine</title>
       <link rel="stylesheet" href="css/bootstrap.min.css">
       <link rel="stylesheet" href="css/font-awesom/css/all.min.css">
-          <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
       <link rel="stylesheet" href="css/style.css">
    </head>
+   <style>
+      th{
+      white-space: nowrap;
+      }
+   </style>
    <body>
     <!-- Topbar Start -->
     <div class="container-fluid py-2 border-bottom d-none d-lg-block">
@@ -63,7 +65,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                     <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="department.php" class="nav-item nav-link">About</a>
+                        <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
                         <a href="medicine.php" class="nav-item nav-link">Medicine</a>
@@ -73,59 +75,42 @@
             </nav>
         </div>
     </div>
+
     <!-- Navbar End -->
       <div class="login">
          <div class="container">
             <div class="row d-flex justify-content-center">
-            <h2 class="heading text-center mt-5 mb-5">All Doctors lists</h2>
+               <h2 class="heading text-center mt-5 mb-3">
+                Basic treatments
+               </h2>
+               <div class="medicine-div mb-100">
+                    <table class="table table-hover table-dark table-bordered" >
+                        <thead>
+                            <tr>
+                                <th scope="col">Symptom </th>
+                                <th scope="col">Treatments</th>
+                                <th scope="col">Suggested Department</th>
 
-            <div class="doctors_div">
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sweating,Headache,Dehydration</td>
+                                <td>Take paracetamol or ibuprofen in appropriate doses to help bring your temperature down.Drink plenty of fluids, particularly water.Avoid alcohol, tea and coffee as these drinks can cause slight dehydration.</td>
+                                <td>Medicine</td>
+                            </tr>
+                        </tbody>
+                    </table>
+               </div>
+ 
 
-                <?php
-                include 'config.php';
-             
-                
-
-                        $doctors = mysqli_query($conn,"SELECT * FROM `doctor_registration`" );
-                        echo' <div class="row mb-100"> ';
-                        if (mysqli_num_rows($doctors) > 0) {
-                            while ($d_data = mysqli_fetch_assoc($doctors)) {
-                                echo '<div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                                <div class="doctor">
-                                    <div class="doctor-img-div">
-                                        <img src="img/' .$d_data['image'] . '" alt="doctor1" class="doctor-img">
-                                    </div>
-                                    <div class="doctor-content">
-                                        <h4 class="doctor_title">Dr. ' .$d_data['r_username'] . '</h4>
-                                        
-                                        <h5 class="doctor_sub_title">' .$d_data['post'] . '</h5>
-                                        <h5 class="doctor_sub_title">' .$d_data['r_department'] . '</h5>
-                                        <a class="doctor_btn btn yellow-btn rounded-pill" href="doctorDetails.php?id='.$d_data['id'].'">View Details</a>
-                                    </div>
-                                </div>
-                            </div>';
-                            }
-                        }
-                        else{
-                            echo '<h2>No doctor in this department</h2>';
-                        }
-                        echo '</div>';
-                       
-
-
-                 ?>
-
-            </div>
-            </div>
             </div>
          </div>
       </div>
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light py-5">
         <div class="container py-5">
             <div class="row g-5">
-               
                 <div class="col-lg-3 col-md-6">
                     <h4 class="d-inline-block yellow-txt text-uppercase border-bottom border-5 border-secondary mb-4">Get In Touch</h4>
                     <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor</p>
