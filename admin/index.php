@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <section class="index-wrapper">
+    <section class="index-wrapper login-area" style="background-image: url('../img/db.jpg');">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">

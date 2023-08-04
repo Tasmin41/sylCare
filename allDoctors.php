@@ -63,11 +63,13 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
                     <a href="index.php" class="nav-item nav-link active">Home</a>
-                        <a href="department.php" class="nav-item nav-link">About</a>
+                        <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
-                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
+                        <a href="medicine.php" class="nav-item nav-link">Health Tips</a>
+
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
             </nav>

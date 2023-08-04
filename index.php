@@ -93,8 +93,10 @@
                         <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
-                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
+                        <a href="medicine.php" class="nav-item nav-link">Health Tips</a>
+
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
             </nav>
@@ -112,7 +114,7 @@
                     <h1 class="display-1 text-white mb-md-4">Best Healthcare Solution In Your City</h1>
                     <div class="pt-2">
                         <a href="allDoctors.php" class="btn yellow-btn rounded-pill py-md-3 px-md-5 mx-2">Find Doctor</a>
-                        <a href="appointment-page.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
+                        <a href="department.php" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2">Appointment</a>
                     </div>
                 </div>
                 <div class="col-lg-6 align-self-end">

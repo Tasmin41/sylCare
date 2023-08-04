@@ -9,15 +9,37 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <section class="login-area">
+    <section class="login-area" style="background-image: url('../sylCare/img/db.jpg');">
         <div class="container">
             <div class="login-form">
-                
-                <form action="loginAction.php" method="post" class="register">
-                    <h3 class="text-white">Login</h3>
+            <?php
+                      include 'config.php';
+
+                      if(isset($_POST['login'])){
+                          $l_username=$_POST['l_username'];
+                          $l_pass=$_POST['l_pass'];
+
+                          $result = mysqli_query($conn ,"SELECT * FROM `user_registration` WHERE r_username='$l_username' And r_pass='$l_pass'");
+
+                          if(mysqli_num_rows($result)>0){
+                              session_start();
+                              $_SESSION['r_username']=$l_username;
+                              echo "<script>location.href='index.php'</script>";
+
+                          }
+                          else{
+                              echo "<script>alert('Incorrect Username And Password!!')</script>";
+                            
+                              echo "<script>location.href='login.php'</script>";
+                          }
+                      }
+                  ?>
+                <form action="" method="post" class="register">
+                    <h3 class="text-white">User Login</h3>
+
                     <div class="mb-3">
-                      <label for="exampleInputEmail1" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" name="l_email">
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" name="l_username">
                     </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Password</label>

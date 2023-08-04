@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <section class="login-area">
+    <section class="login-area" style="background-image: url('../img/db.jpg');">>
         <div class="container">
             <div class="login-form">
                 <h2 class="login-title">Doctor Login</h2>

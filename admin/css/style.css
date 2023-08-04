@@ -214,6 +214,7 @@ a{
   align-items: center;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color:  #1B3764;
 }
 
 .single-profile span i {
@@ -227,6 +228,7 @@ a{
 
 .single-profile h4 {
   font-size: 32px;
+  color: #FFCA42;
 }
 /*index css end here*/
 .error-appointment{
@@ -239,4 +241,11 @@ a{
   margin-bottom: 50px;
   padding-bottom: 50px;
   border-bottom: 1px solid #1B3764;
+}
+.login-area{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
 }

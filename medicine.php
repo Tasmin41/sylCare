@@ -68,8 +68,10 @@
                         <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
-                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
+                        <a href="medicine.php" class="nav-item nav-link">Health Tips</a>
+
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="logout.php" class="nav-item nav-link">Logout</a>
                     </div>
                 </div>
             </nav>
@@ -81,7 +83,7 @@
          <div class="container">
             <div class="row d-flex justify-content-center">
                <h2 class="heading text-center mt-5 mb-3">
-                Basic treatments
+               Health Tips
                </h2>
                <div class="medicine-div mb-100">
                     <table class="table table-hover table-dark table-bordered" >

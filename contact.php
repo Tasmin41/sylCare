@@ -76,8 +76,10 @@
                         <a href="department.php" class="nav-item nav-link">Department</a>
                         <a href="appointmentDetails.php" class="nav-item nav-link">Appointment details</a>
                         <a href="allDoctors.php" class="nav-item nav-link">Doctors</a>
-                        <a href="medicine.php" class="nav-item nav-link">Medicine</a>
+                        <a href="medicine.php" class="nav-item nav-link">Health Tips</a>
+
                         <a href="contact.php" class="nav-item nav-link">Contact</a>
+                        <a href="logout.php" class="nav-item nav-link">Logout</a>
                 </div>
             </div>
         </nav>
@@ -93,7 +95,7 @@
               Get In Touch
             </h2>
           </div>
-          <div class="row">
+          <div class="row align-items-center">
             <div class="col-md-6">
               <div class="form_container contact-form">
                 <form action="">
@@ -129,6 +131,7 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7238.078072365308!2d91.87286838041743!3d24.896650066296058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x375054cc3abd02f9%3A0x9ac793f52e45b85a!2sMira%20Bazar%2C%20Sylhet!5e0!3m2!1sen!2sbd!4v1683744758146!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
               </div>
+              <p class="mt-3">Mirabazar,Sylhet</p>
             </div>
           </div>
         </div>
